@@ -1,0 +1,6 @@
+{
+  "name": "MKRD Engineers Pvt. Ltd.",
+  "description": "Next-generation engineering, mould design, advanced 3D printing, custom software, and immersive 360° virtual tours.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

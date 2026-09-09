@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #f8fafc;
+    color: #1e293b;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Precision Engineering Technical Blueprint Grid */
+.bg-grid-tech {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 58, 138, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 58, 138, 0.05) 1px, transparent 1px);
+}
+
+.bg-dot-matrix {
+  background-image: radial-gradient(rgba(30, 58, 138, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar - Clean Professional */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Glow effects - subtle blue */
+.glow-blue {
+  box-shadow: 0 0 35px -5px rgba(37, 99, 235, 0.2);
+}
+
+.glow-navy {
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.15);
+}
+
+/* 3D Parallax & Depth Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+
+.translate-z-30 {
+  transform: translateZ(30px);
+}
+
+.translate-z-40 {
+  transform: translateZ(40px);
+}
+
+/* Parallax Floating Keyframes */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes floatMedium {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-18px) translateX(6px);
+  }
+}
+
+@keyframes floatFast {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.03);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: floatMedium 5s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: floatFast 3.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* High-tech card interactive shine */
+.card-glass-interactive {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.card-glass-interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(37,99,235,0.1), rgba(6,182,212,0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-glass-interactive:hover::before {
+  opacity: 1;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-marquee {
+  will-change: transform;
+  animation: scroll-marquee 60s linear infinite;
+}
+
+.group\/slider:hover .animate-scroll-marquee {
+  will-change: transform;
+  animation-play-state: paused !important;
+}
+.group\/slider:hover .animate-logos-left,
+.group\/slider:hover .animate-logos-right {
+  animation-play-state: paused !important;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
+@keyframes scroll-marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-marquee-reverse {
+  will-change: transform;
+  animation: scroll-marquee-reverse 60s linear infinite;
+}
+
+.group\/slider:hover .animate-scroll-marquee-reverse {
+  will-change: transform;
+  animation-play-state: paused !important;
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
+
+/* Lenis Recommended Styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Swiper JS Customizations */
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+.swiper-pagination-bullet {
+  background: #22d3ee !important;
+  opacity: 0.3 !important;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  box-shadow: 0 0 10px #22d3ee;
+}
