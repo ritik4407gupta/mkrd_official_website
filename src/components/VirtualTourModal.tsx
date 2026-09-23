@@ -7,20 +7,80 @@ interface VirtualTourModalProps {
   onClose: () => void;
 }
 
+/**
+ * The backdrop behind the tour prompt.
+ *
+ * This was a 3.77 MB looping MP4 whose provenance nobody could confirm, played
+ * at half opacity behind a scrim — three and a half megabytes and an open
+ * licence question for something the visitor barely sees. It is now a wireframe
+ * globe drawn in SVG and turned with CSS: no download, no licence, no JS frame
+ * loop, and it stops dead under prefers-reduced-motion.
+ *
+ * The longitude lines are ellipses whose horizontal radius is animated from
+ * full width to zero and back, phase-offset from one another — which is what a
+ * rotating sphere's meridians actually do in projection.
+ */
 const AnimatedWorldPreview = () => (
-  <div className="absolute inset-0 overflow-hidden bg-[#071d29]" aria-hidden="true">
-    <motion.video
-      src="/videos/world_back.mp4"
-      autoPlay
-      loop
-      muted
-      playsInline
-      animate={{ scale: [1, 1.04, 1], opacity: [0.48, 0.58, 0.48] }}
-      transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      className="absolute inset-0 h-full w-full object-cover"
-    />
-    <div className="absolute inset-0 bg-[#020617]/35" />
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(2,6,23,0.05)_0%,rgba(2,6,23,0.2)_48%,rgba(2,6,23,0.68)_100%)]" />
+  <div className="absolute inset-0 overflow-hidden bg-ink-900" aria-hidden="true">
+    <style>{`
+      @keyframes mkrdMeridian {
+        0%, 100% { transform: scaleX(1); opacity: 0.85; }
+        50%      { transform: scaleX(0.04); opacity: 0.3; }
+      }
+      @keyframes mkrdNode {
+        0%, 100% { opacity: 0.25; r: 1.6; }
+        50%      { opacity: 1;    r: 2.6; }
+      }
+      .mkrd-meridian { transform-origin: 50% 50%; animation: mkrdMeridian 14s ease-in-out infinite; }
+      .mkrd-node { animation: mkrdNode 4s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) {
+        .mkrd-meridian, .mkrd-node { animation: none; }
+      }
+    `}</style>
+    <svg
+      viewBox="0 0 200 200"
+      className="absolute left-1/2 top-1/2 h-[128%] w-[128%] -translate-x-1/2 -translate-y-1/2 opacity-[0.42]"
+      fill="none"
+    >
+      <defs>
+        <radialGradient id="mkrdGlobeGlow" cx="50%" cy="42%" r="58%">
+          <stop offset="0%" stopColor="var(--color-brand-500)" stopOpacity="0.45" />
+          <stop offset="70%" stopColor="var(--color-brand-900)" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="74" fill="url(#mkrdGlobeGlow)" />
+      <circle cx="100" cy="100" r="62" stroke="var(--color-brand-400)" strokeWidth="0.6" opacity="0.75" />
+      {/* latitudes */}
+      {[16, 30, 41, 48].map((ry, i) => (
+        <ellipse key={`lat-${ry}`} cx="100" cy={100 + (i % 2 === 0 ? -1 : 1) * (i < 2 ? 34 : 12)}
+          rx={Math.sqrt(Math.max(62 * 62 - (i < 2 ? 34 : 12) ** 2, 1))} ry={ry * 0.22}
+          stroke="var(--color-brand-500)" strokeWidth="0.45" opacity="0.5" />
+      ))}
+      <ellipse cx="100" cy="100" rx="62" ry="13" stroke="var(--color-accent)" strokeWidth="0.5" opacity="0.55" />
+      {/* meridians */}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <ellipse
+          key={`mer-${i}`}
+          className="mkrd-meridian"
+          style={{ animationDelay: `${(i * 14) / 5}s` }}
+          cx="100" cy="100" rx="62" ry="62"
+          stroke="var(--color-brand-300)" strokeWidth="0.45" opacity="0.6"
+        />
+      ))}
+      {/* tour nodes */}
+      {[[72, 74], [128, 88], [96, 118], [142, 128], [64, 122]].map(([cx, cy], i) => (
+        <circle
+          key={`node-${i}`}
+          className="mkrd-node"
+          style={{ animationDelay: `${i * 0.7}s` }}
+          cx={cx} cy={cy} r="2"
+          fill={i === 1 ? 'var(--color-accent)' : 'var(--color-brand-200)'}
+        />
+      ))}
+    </svg>
+    <div className="absolute inset-0 bg-ink-950/35" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,7,26,0.05)_0%,rgba(6,7,26,0.22)_48%,rgba(6,7,26,0.7)_100%)]" />
   </div>
 );
 
@@ -34,22 +94,29 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-auto p-4 sm:p-6">
+        <motion.div
+          key="virtual-tour-modal-portal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 flex items-center justify-center pointer-events-auto p-4 sm:p-6"
+        >
           <motion.div
             initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
             animate={{ opacity: 1, backdropFilter: 'blur(12px)' }}
             exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.25 }}
             className="absolute inset-0 bg-slate-950/90"
             onClick={onClose}
           />
 
           <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 10 }}
+            initial={{ scale: 0.92, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 10 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative z-10 flex h-[min(82vh,54rem)] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-cyan-300/20 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,0.18)]"
+            exit={{ scale: 0.92, opacity: 0, y: 20 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 300 }}
+            className="relative z-10 flex h-[min(82vh,54rem)] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-brand-300/20 bg-slate-950 shadow-[0_0_80px_rgba(139,125,255,0.18)]"
           >
             <div className="relative z-40 flex h-12 shrink-0 items-center justify-between border-b border-white/10 bg-slate-950/90 px-4 backdrop-blur-xl sm:px-5">
               <div className="flex items-center gap-2" aria-hidden="true">
@@ -69,7 +136,7 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
                   rel="noopener noreferrer"
                   title="Open tour in a new window"
                   aria-label="Open tour in a new window"
-                  className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                  className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-brand-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
                 >
                   <ExternalLink className="h-4 w-4" />
                 </a>
@@ -78,14 +145,14 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
                   onClick={onClose}
                   title="Close virtual tour"
                   aria-label="Close virtual tour"
-                  className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                  className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
             </div>
 
-            <div className="relative min-h-0 flex-1 overflow-hidden bg-[#020617]">
+            <div className="relative min-h-0 flex-1 overflow-hidden bg-[#06071A]">
               {showTour ? (
                 <motion.iframe
                   initial={{ opacity: 0 }}
@@ -104,7 +171,7 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
                     aria-hidden="true"
                     animate={{ x: ['-40%', '130%'], opacity: [0, 0.3, 0] }}
                     transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.5 }}
-                    className="pointer-events-none absolute inset-y-0 z-20 w-1/3 bg-gradient-to-r from-transparent via-cyan-200/10 to-transparent blur-2xl"
+                    className="pointer-events-none absolute inset-y-0 z-20 w-1/3 bg-gradient-to-r from-transparent via-brand-200/10 to-transparent blur-2xl"
                   />
 
                   <div className="absolute inset-0 z-30 flex items-center justify-center p-6">
@@ -119,7 +186,7 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
                       transition={{ delay: 0.35, type: 'spring', stiffness: 220, damping: 16 }}
                       whileHover={{ scale: 1.07, y: -4 }}
                       whileTap={{ scale: 0.96 }}
-                      className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-2xl border border-cyan-200/80 bg-slate-950/90 px-9 py-4 text-cyan-50 shadow-[0_0_30px_rgba(34,211,238,0.35)] backdrop-blur-md transition-shadow duration-500 hover:shadow-[0_0_60px_rgba(34,211,238,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950"
+                      className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-2xl border border-brand-200/80 bg-slate-950/90 px-9 py-4 text-brand-50 shadow-[0_0_30px_rgba(139,125,255,0.35)] backdrop-blur-md transition-shadow duration-500 hover:shadow-[0_0_60px_rgba(139,125,255,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950"
                       aria-label="Begin the SDMS virtual tour inside this window"
                     >
                       <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -131,7 +198,7 @@ export const VirtualTourModal: React.FC<VirtualTourModalProps> = ({ isOpen, onCl
               )}
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

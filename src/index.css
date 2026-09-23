@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/brand.css";
 
 @layer base {
   :root {
@@ -7,10 +8,14 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
   body {
     font-family: var(--font-sans);
-    background-color: #f8fafc;
-    color: #1e293b;
+    background-color: #06071A;
+    color: #cbd5e1;
   }
 
   h1, h2, h3, .font-display {
@@ -26,12 +31,12 @@
 .bg-grid-tech {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(30, 58, 138, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(30, 58, 138, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(46, 34, 230, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(46, 34, 230, 0.05) 1px, transparent 1px);
 }
 
 .bg-dot-matrix {
-  background-image: radial-gradient(rgba(30, 58, 138, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(46, 34, 230, 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -42,25 +47,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0B0D24;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #334155;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #7C71FF;
 }
 
 /* Glow effects - subtle blue */
 .glow-blue {
-  box-shadow: 0 0 35px -5px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 35px -5px rgba(46, 34, 230, 0.2);
 }
 
 .glow-navy {
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 10px 30px -5px rgba(11, 13, 36, 0.15);
 }
 
 /* 3D Parallax & Depth Utilities */
@@ -169,7 +174,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(37,99,235,0.1), rgba(6,182,212,0.4));
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(46,34,230,0.1), rgba(124,113,255,0.4));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -259,10 +264,35 @@ html.lenis, html.lenis body {
   background-size: cover;
 }
 .swiper-pagination-bullet {
-  background: #22d3ee !important;
+  background: #8B7DFF !important;
   opacity: 0.3 !important;
 }
 .swiper-pagination-bullet-active {
   opacity: 1 !important;
-  box-shadow: 0 0 10px #22d3ee;
+  box-shadow: 0 0 10px #8B7DFF;
+}
+
+/* Respect the OS "reduce motion" setting.
+   The site runs 9 infinite animations plus scroll choreography; without this
+   it is unusable for anyone with vestibular sensitivity, and it is also the
+   cheapest perf win on low-end hardware. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-scroll-marquee,
+  .animate-scroll-marquee-reverse,
+  .animate-scanline,
+  .animate-float-slow,
+  .animate-float-medium,
+  .animate-float-fast,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
 }

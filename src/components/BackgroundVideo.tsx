@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import heroImg from '../assets/images/hero_robotic_precision_1787995484245.jpg';
+import heroImg from '../assets/images/hero_robotic_precision_1787995484245.webp';
 
 interface BackgroundVideoProps {
   className?: string;
@@ -16,7 +16,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
   const videoId = 'XXvO86bHwZQ'; 
 
   return (
-    <div className={`relative overflow-hidden w-full h-full bg-[#020617] ${className}`}>
+    <div className={`relative overflow-hidden w-full h-full bg-[#06071A] ${className}`}>
       
       {/* Fallback/Poster Image shows until iframe loads */}
       <img
@@ -38,7 +38,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
 
       {/* Subtle Corporate Blue Tint & Tech Blueprint Overlay */}
       <div className={`absolute inset-0 ${overlayOpacity} backdrop-blur-[2px] pointer-events-none`} />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#06071A] via-transparent to-[#06071A]/50 pointer-events-none" />
       <div className="absolute inset-0 bg-grid-tech opacity-30 pointer-events-none" />
 
     </div>

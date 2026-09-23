@@ -599,7 +599,7 @@ const EntranceDoors = ({
                 rotation={[-Math.PI / 2, 0, 0]}
             >
                 <planeGeometry args={[pathWidth, pathLength]} />
-                <meshBasicMaterial color="#06b6d4"
+                <meshBasicMaterial color="#7C71FF"
                     map={stonePathTexture}
                     transparent={true}
                 />
@@ -609,19 +609,19 @@ const EntranceDoors = ({
             {/* LEFT WALL PANEL */}
             <mesh position={[-(doorOpeningWidth / 2 + sideWallWidth / 2), wallCenterY, 0]}>
                 <boxGeometry args={[sideWallWidth, corridorHeight, wallThickness]} />
-                <meshBasicMaterial color="#06b6d4" roughness={0.95} />
+                <meshBasicMaterial color="#7C71FF" roughness={0.95} />
             </mesh>
 
             {/* RIGHT WALL PANEL */}
             <mesh position={[(doorOpeningWidth / 2 + sideWallWidth / 2), wallCenterY, 0]}>
                 <boxGeometry args={[sideWallWidth, corridorHeight, wallThickness]} />
-                <meshBasicMaterial color="#06b6d4" roughness={0.95} />
+                <meshBasicMaterial color="#7C71FF" roughness={0.95} />
             </mesh>
 
             {/* TOP WALL PANEL */}
             <mesh position={[0, topWallCenterY, 0]}>
                 <boxGeometry args={[doorOpeningWidth, topWallHeight, wallThickness]} />
-                <meshBasicMaterial color="#06b6d4" roughness={0.95} />
+                <meshBasicMaterial color="#7C71FF" roughness={0.95} />
             </mesh>
 
             {/* === BRICK FACADE === */}
@@ -633,7 +633,7 @@ const EntranceDoors = ({
             <mesh position={[0, wallCenterY + facadeYOffset + 1.65, 0.15]}>
                 {/* args={[Szerokość, Wysokość]} - Zmieniaj te liczby (np. 7, 8) */}
                 <planeGeometry args={[16., 8]} />
-                <meshBasicMaterial color="#06b6d4"
+                <meshBasicMaterial color="#7C71FF"
                     map={bricksTexture}
                     transparent={true}
                     alphaTest={0.01}
@@ -644,7 +644,7 @@ const EntranceDoors = ({
             {/* === TEXTURED FRAME === */}
             <mesh position={[0, frameCenterY, 0.12]}>
                 <planeGeometry args={[frameWidth, frameHeight]} />
-                <meshBasicMaterial color="#06b6d4"
+                <meshBasicMaterial color="#7C71FF"
                     map={frameTexture}
                     transparent={true}
                     alphaTest={0.1}
@@ -663,14 +663,14 @@ const EntranceDoors = ({
                     onPointerLeave={handlePointerLeave}
                 >
                     <boxGeometry args={[doorWidth, doorHeight, 0.04]} />
-                    <meshBasicMaterial color="#06b6d4" map={edgeTexture} roughness={0.9} />
+                    <meshBasicMaterial color="#7C71FF" map={edgeTexture} roughness={0.9} />
                 </mesh>
 
                 {/* Painted layer (behind sketch) - left door */}
                 {!isMobile && (
                     <mesh position={[doorWidth / 2, 0, 0.088]}>
                         <planeGeometry args={[doorWidth, doorHeight]} />
-                        <meshBasicMaterial color="#06b6d4"
+                        <meshBasicMaterial color="#7C71FF"
                             map={doorLeftPaintedTexture}
                             transparent={true}
                             alphaTest={0.5}
@@ -682,7 +682,7 @@ const EntranceDoors = ({
                 {/* Sketch overlay (front) - left door brush-stroke reveal */}
                 <mesh position={[doorWidth / 2, 0, 0.09]}>
                     <planeGeometry args={[doorWidth, doorHeight]} />
-                    <revealMaterial color="#06b6d4"
+                    <revealMaterial color="#7C71FF"
                         ref={leftDoorMaterialRef}
                         map={doorLeftTexture}
                         transparent={true}
@@ -696,7 +696,7 @@ const EntranceDoors = ({
                 {/* Back Texture Face (mirrored) */}
                 <mesh position={[doorWidth / 2, 0, 0.03]} rotation={[0, Math.PI, 0]} scale={[-1, 1, 1]}>
                     <planeGeometry args={[doorWidth, doorHeight]} />
-                    <meshBasicMaterial color="#06b6d4"
+                    <meshBasicMaterial color="#7C71FF"
                         map={doorBackTexture}
                         transparent={true}
                         alphaTest={0.5}
@@ -711,7 +711,7 @@ const EntranceDoors = ({
                     {!isMobile && (
                         <mesh ref={leftHandlePaintedRef} position={[-0.357, 0.09, -0.001]} visible={false}>
                             <planeGeometry args={[doorWidth, doorHeight]} />
-                            <meshBasicMaterial color="#06b6d4"
+                            <meshBasicMaterial color="#7C71FF"
                                 map={handleLeftPaintedTexture}
                                 transparent={true}
                                 alphaTest={0.5}
@@ -722,7 +722,7 @@ const EntranceDoors = ({
                     {/* Sketch handle overlay (front) */}
                     <mesh position={[-0.357, 0.099, 0]}>
                         <planeGeometry args={[doorWidth, doorHeight]} />
-                        <revealMaterial color="#06b6d4"
+                        <revealMaterial color="#7C71FF"
                             ref={leftHandleMaterialRef}
                             map={handleLeftTexture}
                             transparent={true}
@@ -744,14 +744,14 @@ const EntranceDoors = ({
                     onPointerLeave={handlePointerLeave}
                 >
                     <boxGeometry args={[doorWidth, doorHeight, 0.04]} />
-                    <meshBasicMaterial color="#06b6d4" map={edgeTexture} roughness={0.9} />
+                    <meshBasicMaterial color="#7C71FF" map={edgeTexture} roughness={0.9} />
                 </mesh>
 
                 {/* Painted layer (behind sketch) - revealed when sketch fades out on hover */}
                 {!isMobile && (
                     <mesh position={[-doorWidth / 2, 0, 0.088]}>
                         <planeGeometry args={[doorWidth, doorHeight]} />
-                        <meshBasicMaterial color="#06b6d4"
+                        <meshBasicMaterial color="#7C71FF"
                             map={doorRightPaintedTexture}
                             transparent={true}
                             alphaTest={0.5}
@@ -763,7 +763,7 @@ const EntranceDoors = ({
                 {/* Sketch overlay (front) - brush-stroke discard reveals painted beneath */}
                 <mesh position={[-doorWidth / 2, 0, 0.09]}>
                     <planeGeometry args={[doorWidth, doorHeight]} />
-                    <revealMaterial color="#06b6d4"
+                    <revealMaterial color="#7C71FF"
                         ref={rightDoorMaterialRef}
                         map={doorRightTexture}
                         transparent={true}
@@ -777,7 +777,7 @@ const EntranceDoors = ({
                 {/* Back Texture Face */}
                 <mesh position={[-doorWidth / 2, 0, 0.03]} rotation={[0, Math.PI, 0]}>
                     <planeGeometry args={[doorWidth, doorHeight]} />
-                    <meshBasicMaterial color="#06b6d4"
+                    <meshBasicMaterial color="#7C71FF"
                         map={doorBackTexture}
                         transparent={true}
                         alphaTest={0.5}
@@ -791,7 +791,7 @@ const EntranceDoors = ({
                     {!isMobile && (
                         <mesh ref={rightHandlePaintedRef} position={[0.357, 0.09, -0.001]} visible={false}>
                             <planeGeometry args={[doorWidth, doorHeight]} />
-                            <meshBasicMaterial color="#06b6d4"
+                            <meshBasicMaterial color="#7C71FF"
                                 map={handleRightPaintedTexture}
                                 transparent={true}
                                 alphaTest={0.5}
@@ -802,7 +802,7 @@ const EntranceDoors = ({
                     {/* Sketch handle overlay (front) */}
                     <mesh position={[0.357, 0.099, 0]}>
                         <planeGeometry args={[doorWidth, doorHeight]} />
-                        <revealMaterial color="#06b6d4"
+                        <revealMaterial color="#7C71FF"
                             ref={rightHandleMaterialRef}
                             map={handleRightTexture}
                             transparent={true}
@@ -843,7 +843,7 @@ const EntranceDoors = ({
             <group position={[2.5, 0, 0.05]} >
                 <mesh position={[0, 0, 0.2]}>
                     <planeGeometry args={[1.5, 1.5]} />
-                    <meshBasicMaterial color="#06b6d4"
+                    <meshBasicMaterial color="#7C71FF"
                         map={windowSketchTexture}
                         transparent={true}
                         depthWrite={false}
@@ -855,7 +855,7 @@ const EntranceDoors = ({
                 <Text
                     position={[0, 0.9, 0]}
                     fontSize={0.6}
-                    color="#020617" // Very dark slate/black for maximum contrast
+                    color="#06071A" // Very dark slate/black for maximum contrast
                     anchorX="center"
                     anchorY="middle"
                     font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
@@ -869,7 +869,7 @@ const EntranceDoors = ({
                 <Text
                     position={[0, 0.3, 0]}
                     fontSize={0.4}
-                    color="#020617" 
+                    color="#06071A" 
                     anchorX="center"
                     anchorY="middle"
                     font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
@@ -883,7 +883,7 @@ const EntranceDoors = ({
                 <Text
                     position={[0, -0.3, 0]}
                     fontSize={0.5}
-                    color="#020617" 
+                    color="#06071A" 
                     anchorX="center"
                     anchorY="middle"
                     font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
@@ -933,8 +933,8 @@ const EntranceDoors = ({
             <mesh position={[-4.2, floorY + 0.005, 3.2]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[3.2, 4.8]} />
                 <meshStandardMaterial
-                    color="#0284c7"
-                    emissive="#0369a1"
+                    color="#5B4DF5"
+                    emissive="#241BB4"
                     emissiveIntensity={0.2}
                     wireframe
                     transparent
@@ -945,8 +945,8 @@ const EntranceDoors = ({
             <mesh position={[4.2, floorY + 0.005, 3.2]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[3.2, 4.8]} />
                 <meshStandardMaterial
-                    color="#06b6d4"
-                    emissive="#0891b2"
+                    color="#7C71FF"
+                    emissive="#5B4DF5"
                     emissiveIntensity={0.2}
                     wireframe
                     transparent
@@ -959,7 +959,7 @@ const EntranceDoors = ({
                 <mesh key={`conduit-${i}`} position={[x, floorY + 0.015, 2.8]} rotation={[-Math.PI / 2, 0, 0]}>
                     <planeGeometry args={[0.04, 5.0]} />
                     <meshBasicMaterial
-                        color={i < 2 ? '#38bdf8' : '#06b6d4'}
+                        color={i < 2 ? '#8B7DFF' : '#7C71FF'}
                         transparent
                         opacity={0.6}
                     />
@@ -974,21 +974,21 @@ const EntranceDoors = ({
             <pointLight
                 position={[0, doorBottomY + doorHeight + 1, 1]}
                 intensity={1.8}
-                color="#06b6d4"
+                color="#7C71FF"
                 distance={18}
             />
 
             <pointLight
                 position={[-4.5, floorY + 2.5, 3]}
                 intensity={1.4}
-                color="#38bdf8"
+                color="#8B7DFF"
                 distance={10}
             />
 
             <pointLight
                 position={[4.5, floorY + 2.5, 3]}
                 intensity={1.4}
-                color="#06b6d4"
+                color="#7C71FF"
                 distance={10}
             />
         </group>

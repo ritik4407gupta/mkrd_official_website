@@ -55,21 +55,21 @@ const CoreServer = () => {
   return (
     <group position={[0, 2, 0]}>
       <Html position={[0, 4, 0]} center zIndexRange={[100, 0]}>
-        <div className="bg-indigo-950/80 border border-indigo-500/50 text-indigo-300 text-xs font-mono px-3 py-1.5 rounded-lg whitespace-nowrap backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center gap-2">
+        <div className="bg-brand-950/80 border border-brand-500/50 text-brand-300 text-xs font-mono px-3 py-1.5 rounded-lg whitespace-nowrap backdrop-blur-md shadow-[0_0_20px_rgba(124,113,255,0.4)] flex items-center gap-2">
           <Server className="w-3.5 h-3.5" />
           NATS CENTRAL BROKER
         </div>
       </Html>
       <Box args={[2.5, 3, 2.5]}>
-        <meshStandardMaterial color="#0f172a" roughness={0.2} metalness={0.8} />
+        <meshStandardMaterial color="#0B0D24" roughness={0.2} metalness={0.8} />
       </Box>
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[2.6, 0.1, 2.6]} />
-        <meshBasicMaterial color="#4f46e5" transparent opacity={0.5} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#5B4DF5" transparent opacity={0.5} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh ref={ringRef} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[3.5, 0.02, 16, 100]} />
-        <meshBasicMaterial color="#6366f1" transparent opacity={0.5} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#7C71FF" transparent opacity={0.5} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
   );
@@ -130,14 +130,15 @@ export const GSTSimulationCanvas = () => {
   const posReports = new THREE.Vector3(7, 5, -8);
   
   return (
-    <div className="w-full h-full bg-[#02040a] rounded-[2rem] overflow-hidden relative flex flex-col shadow-2xl border border-slate-800">
+    <div className="w-full h-full bg-[#04050F] rounded-[2rem] overflow-hidden relative flex flex-col shadow-2xl border border-slate-800">
       
       <div className="flex-grow w-full relative">
         <Canvas dpr={[1, 1.5]} camera={{ position: [0, 15, 25], fov: 45 }}>
-          <color attach="background" args={['#02040a']} />
+          <color attach="background" args={['#04050F']} />
           <ambientLight intensity={0.6} />
           <directionalLight position={[10, 20, 10]} intensity={1.5} castShadow />
-          <Environment preset="city" opacity={0.1} />
+          <hemisphereLight args={[0x8fa2ff, 0x0a0d24, 0.55]} />
+          <directionalLight position={[-14, 8, -12]} intensity={0.7} color="#7C71FF" />
           
           <Grid infiniteGrid fadeDistance={60} sectionColor="#312e81" cellColor="#1e1b4b" position={[0, -0.01, 0]} />
           
@@ -155,7 +156,7 @@ export const GSTSimulationCanvas = () => {
 
           {/* Tax Invoice Engine */}
           <HolographicUI 
-            position={posInvoice.toArray()} color="#0ea5e9" title="Document Engine" icon={FileText}
+            position={posInvoice.toArray()} color="#6E5FFF" title="Document Engine" icon={FileText}
             stats={[
               { label: 'Tax Invoices', value: 'GENERATING' },
               { label: 'Delivery Challans', value: 'SYNCED' },
@@ -165,7 +166,7 @@ export const GSTSimulationCanvas = () => {
 
           {/* E-Way Bill Portal */}
           <HolographicUI 
-            position={posEway.toArray()} color="#f59e0b" title="E-Way Bill Integration" icon={FileBox}
+            position={posEway.toArray()} color="#8B7DFF" title="E-Way Bill Integration" icon={FileBox}
             stats={[
               { label: 'NIC Portal Sync', value: 'CONNECTED' },
               { label: 'Active E-Way Bills', value: '84' },
@@ -175,7 +176,7 @@ export const GSTSimulationCanvas = () => {
 
           {/* GSTR Reports */}
           <HolographicUI 
-            position={posReports.toArray()} color="#8b5cf6" title="GSTR Compliance" icon={ShieldCheck}
+            position={posReports.toArray()} color="#7C71FF" title="GSTR Compliance" icon={ShieldCheck}
             stats={[
               { label: 'GSTR-1 Status', value: 'FILED' },
               { label: 'GSTR-2B Recon', value: 'MATCHED' },
@@ -187,33 +188,33 @@ export const GSTSimulationCanvas = () => {
           <DataPacket start={posDashboard} end={center} speed={0.3} color="#10b981" offset={0} />
           <DataPacket start={center} end={posDashboard} speed={0.3} color="#10b981" offset={0.5} />
           
-          <DataPacket start={posInvoice} end={center} speed={0.4} color="#0ea5e9" offset={0.2} />
-          <DataPacket start={center} end={posInvoice} speed={0.4} color="#0ea5e9" offset={0.7} />
+          <DataPacket start={posInvoice} end={center} speed={0.4} color="#6E5FFF" offset={0.2} />
+          <DataPacket start={center} end={posInvoice} speed={0.4} color="#6E5FFF" offset={0.7} />
           
-          <DataPacket start={posEway} end={center} speed={0.35} color="#f59e0b" offset={0.1} />
-          <DataPacket start={center} end={posEway} speed={0.35} color="#f59e0b" offset={0.6} />
+          <DataPacket start={posEway} end={center} speed={0.35} color="#8B7DFF" offset={0.1} />
+          <DataPacket start={center} end={posEway} speed={0.35} color="#8B7DFF" offset={0.6} />
 
-          <DataPacket start={posReports} end={center} speed={0.45} color="#8b5cf6" offset={0.3} />
-          <DataPacket start={center} end={posReports} speed={0.45} color="#8b5cf6" offset={0.8} />
+          <DataPacket start={posReports} end={center} speed={0.45} color="#7C71FF" offset={0.3} />
+          <DataPacket start={center} end={posReports} speed={0.45} color="#7C71FF" offset={0.8} />
           
           <OrbitControls enablePan={false} minPolarAngle={Math.PI / 8} maxPolarAngle={Math.PI / 2.2} minDistance={15} maxDistance={40} autoRotate autoRotateSpeed={0.8} />
         </Canvas>
       </div>
 
       {/* Advanced Animated Footer Bar */}
-      <div className="w-full bg-slate-950/90 backdrop-blur-2xl border-t border-indigo-500/20 p-5 md:p-8 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 shadow-[0_-20px_50px_rgba(0,0,0,0.6)] z-20 transition-all duration-500 rounded-b-[2rem]">
+      <div className="w-full bg-slate-950/90 backdrop-blur-2xl border-t border-brand-500/20 p-5 md:p-8 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 shadow-[0_-20px_50px_rgba(0,0,0,0.6)] z-20 transition-all duration-500 rounded-b-[2rem]">
         <div className="flex-1 max-w-4xl space-y-3">
           <div className="flex items-center gap-3">
              <div className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-500 shadow-[0_0_10px_rgba(124,113,255,0.8)]"></span>
              </div>
-             <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 font-display font-black text-xl md:text-2xl tracking-wide uppercase">
+             <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-400 font-display font-black text-xl md:text-2xl tracking-wide uppercase">
                GST Billing Suite Advanced Architecture
              </h3>
           </div>
           <p className="text-slate-300 text-sm leading-relaxed">
-            A comprehensive visualization of a fully functional GST billing ERP. The system features a centralized NATS Message Broker that synchronizes a real-time <strong className="text-emerald-400">Financial Dashboard</strong>, an automated <strong className="text-cyan-400">Document Engine</strong> (Tax Invoices, Delivery Challans), seamless <strong className="text-amber-400">E-Way Bill integration</strong> with NIC portals, and automated <strong className="text-purple-400">GSTR Compliance reporting</strong>.
+            A comprehensive visualization of a fully functional GST billing ERP. The system features a centralized NATS Message Broker that synchronizes a real-time <strong className="text-emerald-400">Financial Dashboard</strong>, an automated <strong className="text-brand-400">Document Engine</strong> (Tax Invoices, Delivery Challans), seamless <strong className="text-brand-400">E-Way Bill integration</strong> with NIC portals, and automated <strong className="text-brand-400">GSTR Compliance reporting</strong>.
           </p>
         </div>
         
@@ -223,12 +224,12 @@ export const GSTSimulationCanvas = () => {
             <span className="text-[9px] text-emerald-500 uppercase font-bold tracking-widest">Dashboard & Customers</span>
             <span className="flex items-center gap-1.5"><Users className="w-3 h-3"/> Contact Sync</span>
           </div>
-          <div className="bg-slate-900 border border-cyan-900/50 px-4 py-2 rounded-xl text-xs font-mono text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.1)] flex flex-col gap-1 hover:bg-cyan-950/50 transition-colors">
-            <span className="text-[9px] text-cyan-500 uppercase font-bold tracking-widest">Invoicing Engine</span>
+          <div className="bg-slate-900 border border-brand-900/50 px-4 py-2 rounded-xl text-xs font-mono text-brand-300 shadow-[0_0_15px_rgba(124,113,255,0.1)] flex flex-col gap-1 hover:bg-brand-950/50 transition-colors">
+            <span className="text-[9px] text-brand-500 uppercase font-bold tracking-widest">Invoicing Engine</span>
             <span className="flex items-center gap-1.5"><IndianRupee className="w-3 h-3"/> Payment Tracking</span>
           </div>
-          <div className="bg-slate-900 border border-amber-900/50 px-4 py-2 rounded-xl text-xs font-mono text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.1)] flex flex-col gap-1 hover:bg-amber-950/50 transition-colors">
-            <span className="text-[9px] text-amber-500 uppercase font-bold tracking-widest">NIC Integration</span>
+          <div className="bg-slate-900 border border-brand-900/50 px-4 py-2 rounded-xl text-xs font-mono text-brand-300 shadow-[0_0_15px_rgba(139,125,255,0.1)] flex flex-col gap-1 hover:bg-brand-950/50 transition-colors">
+            <span className="text-[9px] text-brand-500 uppercase font-bold tracking-widest">NIC Integration</span>
             <span className="flex items-center gap-1.5"><Activity className="w-3 h-3"/> E-Way Bill Auto-Gen</span>
           </div>
         </div>

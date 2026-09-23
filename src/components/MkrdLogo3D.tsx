@@ -33,28 +33,28 @@ const LogoMesh = () => {
       {/* Left leg */}
       <mesh position={[-0.8, 0, 0]}>
         <boxGeometry args={[0.3, 2, 0.3]} />
-        <meshStandardMaterial color="#00f0ff" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color="#A79CFF" metalness={0.6} roughness={0.2} />
       </mesh>
       {/* Left diagonal */}
       <mesh position={[-0.4, 0.2, 0]} rotation={[0, 0, -0.5]}>
         <boxGeometry args={[0.3, 1.5, 0.3]} />
-        <meshStandardMaterial color="#0066ff" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color="#2E22E6" metalness={0.6} roughness={0.2} />
       </mesh>
       {/* Right diagonal */}
       <mesh position={[0.4, 0.2, 0]} rotation={[0, 0, 0.5]}>
         <boxGeometry args={[0.3, 1.5, 0.3]} />
-        <meshStandardMaterial color="#0066ff" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color="#2E22E6" metalness={0.6} roughness={0.2} />
       </mesh>
       {/* Right leg */}
       <mesh position={[0.8, 0, 0]}>
         <boxGeometry args={[0.3, 2, 0.3]} />
-        <meshStandardMaterial color="#00f0ff" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color="#A79CFF" metalness={0.6} roughness={0.2} />
       </mesh>
 
       {/* Floating Sparkle/Dot */}
       <mesh position={[1.4, -0.6, 0.2]}>
         <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" emissive="#00f0ff" emissiveIntensity={2} />
+        <meshStandardMaterial color="#ffffff" emissive="#A79CFF" emissiveIntensity={2} />
       </mesh>
     </group>
   );
@@ -66,7 +66,7 @@ export const MkrdLogo3D = ({ className = '' }: { className?: string }) => {
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]}>
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={2} color="#ffffff" />
-        <pointLight position={[-5, -5, 5]} intensity={2} color="#00f0ff" />
+        <pointLight position={[-5, -5, 5]} intensity={2} color="#A79CFF" />
         <LogoMesh />
       </Canvas>
     </div>

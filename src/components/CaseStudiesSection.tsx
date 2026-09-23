@@ -77,7 +77,7 @@ export const CaseStudiesSection: React.FC = () => {
 
                   {/* Top Bar on Image */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full bg-blue-950/90 backdrop-blur-md border border-blue-800 text-[10px] font-mono text-cyan-300 uppercase font-bold">
+                    <span className="px-3 py-1 rounded-full bg-blue-950/90 backdrop-blur-md border border-blue-800 text-[10px] font-mono text-brand-300 uppercase font-bold">
                       {project.category}
                     </span>
                     <span className="font-mono text-xs font-bold text-white bg-slate-950/80 px-2.5 py-0.5 rounded border border-slate-800">
@@ -87,7 +87,7 @@ export const CaseStudiesSection: React.FC = () => {
 
                   {/* Client Tag */}
                   <div className="absolute bottom-4 left-4 font-mono text-xs text-slate-200 flex items-center gap-1.5 font-semibold">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span className="w-2 h-2 rounded-full bg-brand-400"></span>
                     <span>Client: <strong className="text-white">{project.client}</strong></span>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from 'motion/react';
 import {
   Layers,
@@ -16,7 +16,17 @@ import {
   Crosshair,
   ScanLine
 } from 'lucide-react';
-import { SERVICES, MATERIALS_DB } from '../../data/mkrdData';
+import {
+  GhostWord,
+  MaskedHeading,
+  Eyebrow,
+  OffsetGrid,
+  StatStrip,
+  DrawRule,
+  ScanBeam,
+  useSectionScroll,
+} from '../../motion/SectionFX';
+import { SERVICES, MATERIALS_DB, ENGINEERING_SIDE } from '../../data/mkrdData';
 import { ServiceItem } from '../../types';
 import { ParallaxTiltCard } from '../ParallaxTiltCard';
 
@@ -35,7 +45,7 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
-  
+
   const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["100%", "0%"]);
   const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["100%", "0%"]);
   const backgroundPosition = useMotionTemplate`${glareX} ${glareY}`;
@@ -50,7 +60,7 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
     x.set(mouseX / width - 0.5);
     y.set(mouseY / height - 0.5);
   };
-  
+
   const handleMouseLeave = () => { x.set(0); y.set(0); };
 
   return (
@@ -64,10 +74,10 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-full max-w-6xl rounded-3xl border border-cyan-900/50 bg-[#060e22]/90 shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(34,211,238,0.1)] group flex flex-col lg:flex-row overflow-hidden"
+        className="relative w-full max-w-6xl rounded-3xl border border-brand-900/50 bg-[#0B0D24]/90 shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(139,125,255,0.1)] group flex flex-col lg:flex-row overflow-hidden"
       >
         {/* Holographic Glare Effect */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 pointer-events-none z-50 mix-blend-soft-light opacity-50"
           style={{
             background: 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 60%)',
@@ -77,37 +87,60 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
         />
 
         {/* Dynamic Scan Line */}
-        <div className="absolute top-0 bottom-0 left-0 w-1 bg-cyan-400/80 shadow-[0_0_15px_rgba(34,211,238,1)] z-40 animate-[scan_3s_ease-in-out_infinite_alternate]" style={{ transformStyle: 'preserve-3d', transform: 'translateZ(1px)' }} />
+        <div className="absolute top-0 bottom-0 left-0 w-1 bg-brand-400/80 shadow-[0_0_15px_rgba(139,125,255,1)] z-40 animate-[scan_3s_ease-in-out_infinite_alternate]" style={{ transformStyle: 'preserve-3d', transform: 'translateZ(1px)' }} />
 
         {/* LEFT SIDE: Command Center Text Layer */}
-        <div 
+        <div
           className="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center space-y-8 z-30"
           style={{ transformStyle: "preserve-3d", transform: "translateZ(80px)" }}
         >
           <div className="space-y-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
               className="inline-flex items-center gap-2"
             >
-              <Crosshair className="w-4 h-4 text-cyan-400 animate-spin-slow" />
-              <span className="text-cyan-400 text-xs font-mono font-bold uppercase tracking-[0.3em] drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+              <Crosshair className="w-4 h-4 text-brand-400 animate-spin-slow" />
+              <span className="text-brand-400 text-xs font-mono font-bold uppercase tracking-[0.3em] drop-shadow-[0_0_8px_rgba(139,125,255,0.5)]">
                 {service.category} DIVISION
               </span>
+              {service.owner === 'parent' && (
+                <span className="ml-2 px-2 py-0.5 rounded border border-accent/50 bg-accent/10 text-accent-lift text-[10px] font-mono font-bold uppercase tracking-[0.16em]">
+                  Engineering side
+                </span>
+              )}
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
               className="text-4xl sm:text-5xl font-display font-black text-white tracking-tight uppercase"
             >
               {service.title}
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-              className="text-slate-400 text-base leading-relaxed"
+              className="text-fg-muted text-base leading-relaxed"
             >
               {service.fullDesc}
             </motion.p>
+
+            {service.owner === 'parent' && (
+              <motion.p
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+                className="text-[13px] text-fg-dim leading-relaxed border-l-2 border-accent/60 pl-3"
+              >
+                This is {ENGINEERING_SIDE.name}, covered in full at{' '}
+                <a
+                  href={ENGINEERING_SIDE.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-lift underline underline-offset-2 hover:text-accent"
+                >
+                  mkrdengineers.com
+                </a>
+                . {ENGINEERING_SIDE.ourPart}
+              </motion.p>
+            )}
           </div>
 
           {/* Tech Stack Matrix */}
@@ -116,20 +149,20 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 + (tIdx * 0.05) }}
                 key={tIdx}
-                className="flex items-center gap-2 p-2 rounded bg-cyan-950/20 border border-cyan-900/40 text-cyan-200 font-mono text-xs shadow-[inset_0_0_10px_rgba(34,211,238,0.05)]"
+                className="flex items-center gap-2 p-2 rounded bg-brand-950/20 border border-brand-900/40 text-brand-200 font-mono text-xs shadow-[inset_0_0_10px_rgba(139,125,255,0.05)]"
               >
-                <div className="w-1 h-1 bg-cyan-400 rounded-full" />
+                <div className="w-1 h-1 bg-brand-400 rounded-full" />
                 {tech}
               </motion.div>
             ))}
           </div>
 
           {/* Holographic Stats Strip */}
-          <div className="flex gap-6 border-t border-cyan-900/40 pt-6" style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}>
+          <div className="flex gap-6 border-t border-brand-900/40 pt-6" style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}>
             {service.stats.map((st, sIdx) => (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + (sIdx * 0.1) }} key={sIdx} className="space-y-1">
                 <div className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">{st.label}</div>
-                <div className="text-xl font-display font-bold text-cyan-400">{st.value}</div>
+                <div className="text-xl font-display font-bold text-brand-400">{st.value}</div>
               </motion.div>
             ))}
           </div>
@@ -137,34 +170,34 @@ const HologramCard = ({ service, onOpenQuoteModal }: { service: ServiceItem, onO
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} style={{ transformStyle: "preserve-3d", transform: "translateZ(60px)" }}>
             <button
               onClick={() => onOpenQuoteModal(service.id)}
-              className="group relative px-6 py-3 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-bold text-sm tracking-wider uppercase border border-cyan-500/50 hover:border-cyan-400 transition-all overflow-hidden rounded-md flex items-center gap-2"
+              className="group relative px-6 py-3 bg-brand-500/10 hover:bg-brand-500/20 text-brand-400 font-bold text-sm tracking-wider uppercase border border-brand-500/50 hover:border-brand-400 transition-all overflow-hidden rounded-md flex items-center gap-2"
             >
               <ScanLine className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span>Initialize Quotation</span>
-              <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out" />
+              <span>Get a price</span>
+              <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-brand-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out" />
             </button>
           </motion.div>
         </div>
 
         {/* RIGHT SIDE: 3D Image Projection */}
-        <div 
+        <div
           className="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-full overflow-hidden"
         >
           {/* Edge Blending Mask */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#060e22]/90 via-[#060e22]/50 to-transparent z-10 hidden lg:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060e22]/90 via-[#060e22]/50 to-transparent z-10 lg:hidden" />
-          
-          <motion.div 
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D24] via-[#0B0D24]/45 to-transparent z-10 hidden lg:block pointer-events-none" style={{ maskImage: 'linear-gradient(to right, #000 0%, #000 22%, transparent 55%)' }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D24]/90 via-[#0B0D24]/50 to-transparent z-10 lg:hidden" />
+
+          <motion.div
             className="absolute inset-0 w-full h-full"
             style={{ transformStyle: "preserve-3d", transform: "translateZ(-40px) scale(1.1)" }}
           >
-            <img 
-              src={service.image} 
-              alt={service.title} 
-              className="w-full h-full object-cover opacity-60 mix-blend-luminosity filter contrast-125 group-hover:mix-blend-normal group-hover:opacity-90 transition-all duration-700"
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-full object-contain object-right opacity-80 group-hover:opacity-100 transition-opacity duration-700"
             />
             {/* Grid Overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.1)_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(139,125,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,125,255,0.1)_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
           </motion.div>
         </div>
 
@@ -177,24 +210,47 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
   const [activeTab, setActiveTab] = useState<string>(SERVICES[0].id);
   const activeService = SERVICES.find(s => s.id === activeTab) || SERVICES[0];
 
+  // Sync active service with URL hash (e.g., #service-3d-printing-prototyping)
+  useEffect(() => {
+    const syncHash = () => {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (hash.startsWith('service-')) {
+        const id = hash.replace('service-', '');
+        if (SERVICES.some(s => s.id === id)) {
+          setActiveTab(id);
+        }
+      }
+    };
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, []);
+
   const pipelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: pipelineRef, offset: ["start center", "end center"] });
   const pathLength = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  // a second, wider window for the parallax behind the same section
+  const { scrollYProgress: pipelineProgress } = useSectionScroll(pipelineRef);
 
   return (
-    <div className="pb-16 bg-[#020617] min-h-[100vh] text-slate-300 pt-8 overflow-hidden relative">
-      
+    <div className="pb-16 bg-[#06071A] min-h-[100vh] text-slate-300 pt-8 overflow-hidden relative">
+
       {/* Cinematic Grid Background */}
       <div className="absolute top-0 left-0 right-0 h-[100vh] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_100%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none opacity-40 z-0" style={{ transform: "translateZ(0)", willChange: "transform" }} />
 
       {/* Header Panel */}
       <section className="relative z-10 pt-16 pb-8 text-center px-4">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-950/40 border border-cyan-800/50 rounded-full mb-6">
-          <Layers className="w-4 h-4 text-cyan-400" />
-          <span className="text-xs font-mono font-bold text-cyan-400 tracking-widest">INDUSTRIAL & DIGITAL SYNERGY</span>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-3 py-1 bg-brand-950/40 border border-brand-800/50 rounded-full mb-6">
+          <Layers className="w-4 h-4 text-brand-400" />
+          <span className="text-xs font-mono font-bold text-brand-400 tracking-widest">WHAT WE ACTUALLY DO</span>
         </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-5xl md:text-7xl font-display font-black text-white tracking-tight uppercase drop-shadow-lg">
-          Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400">Modules</span>
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-5xl md:text-7xl font-display font-black text-white tracking-tight uppercase drop-shadow-lg"
+        >
+          OUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-brand-500 to-accent">SERVICES</span>
         </motion.h1>
 
         {/* Sci-Fi Tab Navigation */}
@@ -206,17 +262,23 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + (i * 0.05) }}
                 key={s.id}
                 onClick={() => setActiveTab(s.id)}
-                className={`relative px-6 py-3 rounded-lg text-xs md:text-sm font-mono font-bold uppercase tracking-wider transition-all duration-300 overflow-hidden group ${
-                  isActive ? 'text-white' : 'text-slate-500 hover:text-cyan-200'
-                }`}
+                className={`relative px-6 py-3 rounded-lg text-xs md:text-sm font-mono font-bold uppercase tracking-wider transition-all duration-300 overflow-hidden group ${isActive ? 'text-white' : 'text-slate-500 hover:text-brand-200'
+                  }`}
               >
-                <div className={`absolute inset-0 transition-opacity duration-300 ${isActive ? 'bg-cyan-900/30 opacity-100' : 'bg-transparent opacity-0 group-hover:bg-slate-800/50 group-hover:opacity-100'}`} />
+                <div className={`absolute inset-0 transition-opacity duration-300 ${isActive ? 'bg-brand-900/30 opacity-100' : 'bg-transparent opacity-0 group-hover:bg-slate-800/50 group-hover:opacity-100'}`} />
                 {isActive && (
-                  <motion.div layoutId="activeTabBorder" className="absolute inset-0 border border-cyan-400 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.5)]" initial={false} transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+                  <motion.div layoutId="activeTabBorder" className="absolute inset-0 border border-brand-400 rounded-lg shadow-[0_0_15px_rgba(139,125,255,0.5)]" initial={false} transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
                 )}
                 <span className="relative z-10 flex items-center gap-2">
-                  {isActive && <div className="w-1.5 h-1.5 rounded-sm bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,1)]" />}
+                  {isActive && <div className="w-1.5 h-1.5 rounded-sm bg-brand-400 animate-pulse shadow-[0_0_8px_rgba(139,125,255,1)]" />}
                   {s.title}
+                  {s.owner === 'parent' && (
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-accent/80"
+                      title="Covered on our engineering site, mkrdengineers.com"
+                      aria-label="Engineering side"
+                    />
+                  )}
                 </span>
               </motion.button>
             );
@@ -240,21 +302,35 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
 
       {/* CYBER PIPELINE (Execution Steps) */}
       <section ref={pipelineRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-display font-black text-white uppercase tracking-widest">Standardized Execution Pipeline</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mt-4" />
+        <GhostWord text="PIPELINE" progress={pipelineProgress} strength={16} />
+        <div className="relative z-10 text-center mb-16">
+          <Eyebrow tone="brand">How a job actually runs</Eyebrow>
+          <MaskedHeading
+            as="h2"
+            align="center"
+            text="Standardised execution pipeline"
+            highlight={['pipeline']}
+            className="mt-5 text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-widest"
+          />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="w-24 h-1 bg-gradient-to-r from-transparent via-brand-500 to-transparent mx-auto mt-5"
+          />
         </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Glowing Connecting Line SVG (Visible on MD+) */}
           <div className="absolute top-[32px] left-[10%] right-[10%] h-1 -translate-y-1/2 hidden md:block z-0">
             <svg width="100%" height="4" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(34,211,238,0.2)" strokeWidth="4" strokeDasharray="8 8" />
-              <motion.line 
-                x1="0" y1="2" x2="100%" y2="2" 
-                stroke="#22d3ee" strokeWidth="4" 
+              <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(139,125,255,0.2)" strokeWidth="4" strokeDasharray="8 8" />
+              <motion.line
+                x1="0" y1="2" x2="100%" y2="2"
+                stroke="#8B7DFF" strokeWidth="4"
                 style={{ pathLength }}
-                className="drop-shadow-[0_0_10px_rgba(34,211,238,1)]"
+                className="drop-shadow-[0_0_10px_rgba(139,125,255,1)]"
               />
             </svg>
           </div>
@@ -268,9 +344,9 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
               transition={{ delay: idx * 0.2, duration: 0.6 }}
               className="relative z-10 flex flex-col items-center text-center group"
             >
-              <div className="w-16 h-16 rounded-full bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-2xl font-black text-slate-500 group-hover:border-cyan-400 group-hover:text-cyan-400 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all duration-500 mb-6 relative">
+              <div className="w-16 h-16 rounded-full bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-2xl font-black text-slate-500 group-hover:border-brand-400 group-hover:text-brand-400 group-hover:shadow-[0_0_30px_rgba(139,125,255,0.4)] transition-all duration-500 mb-6 relative">
                 {step.step}
-                <div className="absolute inset-0 rounded-full border border-cyan-400 scale-150 opacity-0 group-hover:scale-110 group-hover:opacity-50 transition-all duration-700" />
+                <div className="absolute inset-0 rounded-full border border-brand-400 scale-150 opacity-0 group-hover:scale-110 group-hover:opacity-50 transition-all duration-700" />
               </div>
               <h4 className="font-display font-bold text-lg text-white mb-2">{step.label}</h4>
               <p className="text-sm text-slate-400 leading-relaxed px-4">{step.desc}</p>
@@ -281,18 +357,31 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
 
       {/* MATERIALS DATABASE (Sci-Fi Cards) */}
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-6">
+        <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
           <div>
-            <div className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+            <div className="text-xs font-mono font-bold text-brand-400 uppercase tracking-widest flex items-center gap-2 mb-2">
               <Box className="w-4 h-4" /> ENGINEERING SUBSTRATES
             </div>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase tracking-tight">
-              Materials Library
-            </h2>
+            <MaskedHeading
+              as="h2"
+              text="Materials library"
+              highlight={['library']}
+              className="text-3xl sm:text-4xl font-display font-black text-white uppercase tracking-tight"
+            />
           </div>
-          <p className="text-sm text-slate-400 max-w-sm text-left md:text-right">
-            Certified polymers, tool steels, and aerospace composites actively stocked in the Manesar facility.
-          </p>
+          <div className="flex flex-col items-start md:items-end gap-6">
+            <p className="text-sm text-slate-400 max-w-sm text-left md:text-right">
+              What is on the shelf, and what each grade is actually for. Which one goes in is a
+              decision we make against your part rather than a menu you pick from blind.
+            </p>
+            <StatStrip
+              items={[
+                { value: MATERIALS_DB.length, label: 'Grades stocked' },
+                { value: 2, label: 'Processes' },
+              ]}
+            />
+          </div>
+          <DrawRule className="absolute bottom-0 inset-x-0" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -300,18 +389,18 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
             <ParallaxTiltCard
               key={mat.id}
               maxTilt={10}
-              glowColor="rgba(34, 211, 238, 0.2)"
-              className="p-6 rounded-2xl bg-[#060e22] border border-cyan-900/30 shadow-lg flex flex-col justify-between group overflow-hidden"
+              glowColor="rgba(139, 125, 255, 0.2)"
+              className="p-6 rounded-2xl bg-[#0B0D24] border border-brand-900/30 shadow-lg flex flex-col justify-between group overflow-hidden"
             >
               {/* Laser Sweep Effect */}
-              <div className="absolute top-0 bottom-0 left-0 w-[200%] bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent -translate-x-[100%] group-hover:translate-x-[50%] transition-transform duration-[1.5s] ease-in-out pointer-events-none" />
+              <div className="absolute top-0 bottom-0 left-0 w-[200%] bg-gradient-to-r from-transparent via-brand-400/5 to-transparent -translate-x-[100%] group-hover:translate-x-[50%] transition-transform duration-[1.5s] ease-in-out pointer-events-none" />
 
               <div className="relative z-10">
                 <div className="flex items-start justify-between">
-                  <span className="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-cyan-400 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  <span className="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-brand-400 text-[10px] font-mono font-bold uppercase tracking-wider">
                     {mat.category}
                   </span>
-                  <span className="text-[10px] px-2 py-1 bg-cyan-950/30 text-cyan-300 font-mono font-bold rounded">
+                  <span className="text-[10px] px-2 py-1 bg-brand-950/30 text-brand-300 font-mono font-bold rounded">
                     {mat.costTier}
                   </span>
                 </div>
@@ -330,22 +419,22 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenQuoteModal }) 
                     <span className="font-bold text-white">{mat.tensileStrength}</span>
                   </div>
                   <div className="w-full h-1 bg-slate-900 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }} whileInView={{ width: '85%' }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.2 }}
-                      className="h-full bg-cyan-500/80 shadow-[0_0_10px_rgba(34,211,238,0.5)] rounded-full" 
+                      className="h-full bg-brand-500/80 shadow-[0_0_10px_rgba(139,125,255,0.5)] rounded-full"
                     />
                   </div>
                 </div>
-                
+
                 <div className="space-y-1">
                   <div className="flex justify-between font-mono text-[10px] uppercase tracking-wider">
                     <span className="text-slate-500">HEAT DEFLECTION</span>
                     <span className="font-bold text-blue-400">{mat.heatDeflection}</span>
                   </div>
                   <div className="w-full h-1 bg-slate-900 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }} whileInView={{ width: '65%' }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.4 }}
-                      className="h-full bg-blue-500/80 shadow-[0_0_10px_rgba(59,130,246,0.5)] rounded-full" 
+                      className="h-full bg-blue-500/80 shadow-[0_0_10px_rgba(59,130,246,0.5)] rounded-full"
                     />
                   </div>
                 </div>

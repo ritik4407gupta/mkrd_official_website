@@ -1,80 +1,87 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { CLIENT_PARTNERS } from '../data/mkrdData';
 
-const PARTNER_LOGOS = [
-  "https://static.wixstatic.com/media/f32f12_4d2d6b7239a94ec782af0d187c9a1857~mv2.png/v1/fill/w_134,h_76,al_c,q_85/Screenshot.png",
-  "https://static.wixstatic.com/media/f32f12_75834f48d5f347f880d2d609991bc092~mv2.png/v1/fill/w_98,h_174,al_c,q_85/product.png",
-  "https://static.wixstatic.com/media/f32f12_40b6428e42ae47ed88bfea6bf1fb10dc~mv2.webp/v1/fill/w_288,h_216,al_c,q_80/Panasonic.webp",
-  "https://static.wixstatic.com/media/f32f12_4fdbb24c752d45249f78bcaa14c50867~mv2.png/v1/fill/w_228,h_128,al_c,q_85/god.png",
-  "https://static.wixstatic.com/media/f32f12_fb590aa8fd8e411097873444fc741e2b~mv2.png/v1/crop/x_0,y_0,w_1772,h_788/fill/w_96,h_42,al_c,q_85/Screen.png",
-  "https://static.wixstatic.com/media/f32f12_87d4efb8e9684b339a27f71050261a80~mv2.jpeg/v1/fill/w_126,h_100,al_c,q_80/images.jpeg",
-  "https://static.wixstatic.com/media/f32f12_9f7b5d2d043f43de8789ce86995a52a3~mv2.png/v1/crop/x_26,y_0,w_255,h_170/fill/w_128,h_86,al_c,q_85/alp.png",
-  "https://static.wixstatic.com/media/f32f12_7da8c4d433eb4f3fadd8b82e9ed51717~mv2.jpg/v1/fill/w_292,h_164,al_c,q_80/PHOTO.jpg",
-  "https://static.wixstatic.com/media/f32f12_052a355706ce45259198de967e3524fa~mv2.png/v1/fill/w_126,h_100,al_c,q_85/images.png",
-  "https://static.wixstatic.com/media/f32f12_d0cbbca742e343b9bcac993535f89719~mv2.png/v1/fill/w_150,h_76,al_c,q_85/logo.png",
-  "https://static.wixstatic.com/media/f32f12_7b2c58effafd4d5aafd1850444e1564e~mv2.png/v1/fill/w_122,h_68,al_c,q_85/Screen.png",
-  "https://static.wixstatic.com/media/f32f12_a62b699f104d469b84e46c78999dec33~mv2.png/v1/fill/w_216,h_110,al_c,q_85/Screen.png"
-];
+/**
+ * The client wall.
+ *
+ * This used to be twelve <img> tags pointed at static.wixstatic.com — the CDN
+ * behind the old Wix site — so every visitor to the new site fetched twelve
+ * client logos from a third party, and the files themselves were screen crops
+ * ("Screenshot.png", "images.jpeg", "god.png") of other companies' marks. Three
+ * problems in one component: an uncontrolled third-party dependency on the
+ * critical path, every visitor's IP handed to Wix, and other people's
+ * trademarks reproduced from crops nobody supplied.
+ *
+ * So the wall is set in type instead. It reads better, it says who each client
+ * actually is instead of twelve identical alt="Partner Logo", it costs zero
+ * network requests, and it is honest. If MKRD holds written permission and the
+ * supplied logo files, they drop straight into this layout.
+ */
 
-// Split the logos into two halves for the two sliders
-const ROW_1 = PARTNER_LOGOS.slice(0, 6);
-const ROW_2 = PARTNER_LOGOS.slice(6, 12);
+const Plate: React.FC<{ name: string; category: string }> = ({ name, category }) => (
+  <div
+    className="group/plate relative shrink-0 w-56 sm:w-64 px-5 py-4 rounded-xl border border-ink-700/80 bg-ink-900/50
+               hover:border-brand-700/80 hover:bg-ink-850/70 transition-colors duration-300"
+  >
+    {/* the parting line, same motif as the mark and the page transition */}
+    <span
+      aria-hidden="true"
+      className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full bg-accent/45 group-hover/plate:bg-accent transition-colors duration-300"
+    />
+    <div className="font-display font-extrabold text-[15px] leading-tight text-fg group-hover/plate:text-white transition-colors">
+      {name}
+    </div>
+    <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-fg-dim">
+      {category}
+    </div>
+  </div>
+);
 
 export const PartnerLogosMarquee: React.FC = () => {
+  const { rowA, rowB } = useMemo(() => {
+    const half = Math.ceil(CLIENT_PARTNERS.length / 2);
+    return { rowA: CLIENT_PARTNERS.slice(0, half), rowB: CLIENT_PARTNERS.slice(half) };
+  }, []);
+
   return (
-    <div className="w-full overflow-hidden bg-transparent py-10 sm:py-16 flex flex-col gap-10 relative z-10">
-      
-      {/* Title */}
-      <div className="text-center mb-6 relative z-30">
-        <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-          Trusted By Industry Leaders
+    <section className="w-full overflow-hidden py-12 sm:py-16 relative z-10" aria-labelledby="client-wall-heading">
+      <div className="text-center mb-9 px-4">
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-brand-400 mb-3">Client roster</p>
+        <h2 id="client-wall-heading" className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight text-white uppercase">
+          Who we build for
         </h2>
-        <div className="w-16 h-1 bg-cyan-500/50 mx-auto mt-4 rounded-full" />
+        <div className="w-14 h-[3px] bg-gradient-to-r from-brand-500 to-accent mx-auto mt-4 rounded-full" />
       </div>
 
-      {/* CSS Animation defined inline for portability */}
       <style>{`
-        @keyframes scrollLogosLeft {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes scrollLogosRight {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0%); }
-        }
-        .animate-logos-left {
-          animation: scrollLogosLeft 25s linear infinite;
-        }
-        .animate-logos-right {
-          animation: scrollLogosRight 25s linear infinite;
-        }
-        .animate-logos-left:hover,
-        .animate-logos-right:hover {
-          animation-play-state: paused;
+        @keyframes mkrdRosterL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes mkrdRosterR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        .mkrd-roster-l { animation: mkrdRosterL 46s linear infinite; }
+        .mkrd-roster-r { animation: mkrdRosterR 52s linear infinite; }
+        .mkrd-roster-l:hover, .mkrd-roster-r:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+          .mkrd-roster-l, .mkrd-roster-r { animation: none; transform: none; }
         }
       `}</style>
-      
-      {/* Dark gradient fade masks for seamless edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-20 pointer-events-none" />
-      
-      {/* Row 1 (Left to Right, so animation is scrollLogosRight) */}
-      <div className="flex gap-40 sm:gap-64 px-10 items-center animate-logos-right" style={{ width: 'max-content' }}>
-        {[...ROW_1, ...ROW_1, ...ROW_1, ...ROW_1].map((logo, idx) => (
-          <div key={idx} className="flex items-center justify-center w-32 h-16 opacity-90 hover:opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer grayscale hover:grayscale-0">
-            <img src={logo} alt="Partner Logo" className="max-w-full max-h-full object-contain" />
-          </div>
-        ))}
-      </div>
 
-      {/* Row 2 (Right to Left, so animation is scrollLogosLeft) */}
-      <div className="flex gap-40 sm:gap-64 px-10 items-center animate-logos-left" style={{ width: 'max-content' }}>
-        {[...ROW_2, ...ROW_2, ...ROW_2, ...ROW_2].map((logo, idx) => (
-          <div key={idx} className="flex items-center justify-center w-32 h-16 opacity-90 hover:opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer grayscale hover:grayscale-0">
-            <img src={logo} alt="Partner Logo" className="max-w-full max-h-full object-contain" />
-          </div>
-        ))}
-      </div>
+      <div className="relative">
+        {/* edge fades, in the page's own ink rather than a stray slate */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-20 bg-gradient-to-r from-ink-950 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-20 bg-gradient-to-l from-ink-950 to-transparent" />
 
-    </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4 px-4 mkrd-roster-r" style={{ width: 'max-content' }}>
+            {[...rowA, ...rowA, ...rowA].map((c, i) => (
+              <Plate key={`a-${i}`} name={c.name} category={c.category} />
+            ))}
+          </div>
+          <div className="flex gap-4 px-4 mkrd-roster-l" style={{ width: 'max-content' }}>
+            {[...rowB, ...rowB, ...rowB].map((c, i) => (
+              <Plate key={`b-${i}`} name={c.name} category={c.category} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };

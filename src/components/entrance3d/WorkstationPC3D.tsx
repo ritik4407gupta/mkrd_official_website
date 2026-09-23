@@ -98,7 +98,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
       <mesh position={[0, 0.72, 0]}>
         <boxGeometry args={[1.6, 0.06, 0.8]} />
         <meshStandardMaterial
-          color={hovered ? '#1e293b' : '#0f172a'}
+          color={hovered ? '#161A40' : '#0B0D24'}
           metalness={0.8}
           roughness={0.2}
         />
@@ -108,7 +108,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
       <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.85, 0.95, 32]} />
         <meshBasicMaterial
-          color={hovered ? '#818cf8' : '#3b82f6'}
+          color={hovered ? '#8B7DFF' : '#5B4DF5'}
           transparent
           opacity={hovered ? 0.9 : 0.4}
         />
@@ -118,7 +118,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
       {[-0.7, 0.7].map((x, xi) => (
         <mesh key={`leg-${xi}`} position={[x, 0.36, 0]}>
           <boxGeometry args={[0.08, 0.72, 0.7]} />
-          <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
+          <meshStandardMaterial color="#232A5E" metalness={0.9} roughness={0.2} />
         </mesh>
       ))}
 
@@ -127,13 +127,13 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         {/* Frame */}
         <mesh>
           <boxGeometry args={[0.7, 0.42, 0.03]} />
-          <meshStandardMaterial color="#0b1120" metalness={0.9} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.9} />
         </mesh>
         {/* Screen Display */}
         <mesh position={[0, 0, 0.02]}>
           <planeGeometry args={[0.66, 0.38]} />
           <meshStandardMaterial
-            color="#0f172a"
+            color="#0B0D24"
             emissive="#1e3a8a"
             emissiveIntensity={hovered ? 1.0 : 0.6}
             roughness={0.1}
@@ -146,14 +146,14 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         {/* Frame */}
         <mesh>
           <boxGeometry args={[0.7, 0.42, 0.03]} />
-          <meshStandardMaterial color="#0b1120" metalness={0.9} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.9} />
         </mesh>
         {/* Screen Display */}
         <mesh position={[0, 0, 0.02]}>
           <planeGeometry args={[0.66, 0.38]} />
           <meshStandardMaterial
-            color="#0f172a"
-            emissive={activeMode === 1 ? '#0891b2' : '#4338ca'}
+            color="#0B0D24"
+            emissive={activeMode === 1 ? '#5B4DF5' : '#4338ca'}
             emissiveIntensity={hovered ? 1.0 : 0.6}
             roughness={0.1}
           />
@@ -170,14 +170,14 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
       <group position={[0.6, 1.02, 0.15]}>
         <mesh>
           <boxGeometry args={[0.22, 0.52, 0.44]} />
-          <meshStandardMaterial color="#0f172a" metalness={0.9} roughness={0.2} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.9} roughness={0.2} />
         </mesh>
 
         {/* RGB Tempered Glass Side Window */}
         <mesh position={[-0.115, 0, 0]}>
           <planeGeometry args={[0.4, 0.46]} />
           <meshPhysicalMaterial
-            color="#818cf8"
+            color="#8B7DFF"
             transparent
             opacity={0.3}
             roughness={0.1}
@@ -189,8 +189,8 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         <mesh position={[0, 0, 0.225]}>
           <planeGeometry args={[0.18, 0.46]} />
           <meshStandardMaterial
-            color="#0284c7"
-            emissive="#38bdf8"
+            color="#5B4DF5"
+            emissive="#8B7DFF"
             emissiveIntensity={hovered ? 0.8 : 0.4}
             wireframe
           />
@@ -199,7 +199,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         <pointLight
           ref={pcRgbRef}
           position={[-0.05, 0, 0]}
-          color="#818cf8"
+          color="#8B7DFF"
           intensity={hovered ? 2.5 : 1.2}
           distance={1.5}
         />
@@ -210,14 +210,14 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         {/* Keyboard Body */}
         <mesh>
           <boxGeometry args={[0.45, 0.015, 0.16]} />
-          <meshStandardMaterial color="#0b1120" metalness={0.8} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.8} />
         </mesh>
         {/* Keycap Glow */}
         <mesh position={[0, 0.01, 0]}>
           <planeGeometry args={[0.42, 0.13]} />
           <meshStandardMaterial
-            color="#818cf8"
-            emissive="#6366f1"
+            color="#8B7DFF"
+            emissive="#7C71FF"
             emissiveIntensity={hovered ? 0.7 : 0.3}
           />
         </mesh>
@@ -225,7 +225,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         {/* Precision Mouse */}
         <mesh position={[0.3, 0, 0]}>
           <boxGeometry args={[0.07, 0.02, 0.11]} />
-          <meshStandardMaterial color="#1e293b" metalness={0.7} />
+          <meshStandardMaterial color="#161A40" metalness={0.7} />
         </mesh>
       </group>
 
@@ -234,8 +234,8 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         <mesh>
           <octahedronGeometry args={[0.18, 1]} />
           <meshStandardMaterial
-            color={activeMode === 0 ? '#38bdf8' : activeMode === 1 ? '#22d3ee' : '#a855f7'}
-            emissive={activeMode === 0 ? '#0284c7' : activeMode === 1 ? '#0891b2' : '#7e22ce'}
+            color={activeMode === 0 ? '#8B7DFF' : activeMode === 1 ? '#8B7DFF' : '#a855f7'}
+            emissive={activeMode === 0 ? '#5B4DF5' : activeMode === 1 ? '#5B4DF5' : '#7e22ce'}
             emissiveIntensity={hovered ? 1.4 : 0.8}
             wireframe
           />
@@ -244,7 +244,7 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
         <mesh rotation={[Math.PI / 3, 0, 0]}>
           <torusGeometry args={[0.26, 0.015, 12, 32]} />
           <meshBasicMaterial
-            color="#818cf8"
+            color="#8B7DFF"
             transparent
             opacity={hovered ? 0.9 : 0.4}
           />
@@ -263,20 +263,20 @@ export const WorkstationPC3D: React.FC<WorkstationPC3DProps> = ({
             hovered ? 'scale-105 opacity-100' : 'scale-90 opacity-80'
           }`}
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-indigo-500/60 shadow-[0_0_20px_rgba(99,102,241,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-ping" />
-            <span className="font-bold text-indigo-300">CAD WORKSTATION</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-brand-500/60 shadow-[0_0_20px_rgba(124,113,255,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping" />
+            <span className="font-bold text-brand-300">CAD WORKSTATION</span>
             <span className="text-[10px] text-slate-400">|</span>
-            <span className="text-[10px] text-cyan-300 font-semibold">{simModes[activeMode]}</span>
+            <span className="text-[10px] text-brand-300 font-semibold">{simModes[activeMode]}</span>
           </div>
 
           {hovered && (
-            <div className="p-3 rounded-xl bg-slate-950/95 border border-indigo-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
-              <div className="font-bold text-indigo-400 text-xs mb-1 font-display">RTX Precision Terminal</div>
+            <div className="p-3 rounded-xl bg-slate-950/95 border border-brand-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
+              <div className="font-bold text-brand-400 text-xs mb-1 font-display">RTX Precision Terminal</div>
               <p className="text-[11px] text-slate-300 leading-snug">
                 Simulating parametric injection moulds and stress concentrations in real time. Click to toggle simulation layer!
               </p>
-              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-indigo-300">
+              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-brand-300">
                 <span>SIM: #{activeMode + 1}/3</span>
                 <span className="text-emerald-400">CLICK TO CYCLE</span>
               </div>

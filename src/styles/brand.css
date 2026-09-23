@@ -1,0 +1,78 @@
+/* ============================================================================
+   MKRD brand tokens — the single source of colour, derived from the logo.
+   Blue #2E22E6 and red #E20207 are sampled from the mark itself.
+
+   Nothing in the app should ever type a colour literal again: every value
+   below is exposed both as a plain CSS variable (for inline styles, canvas,
+   three.js materials) and as a Tailwind v4 theme colour (bg-ink-900,
+   text-brand, border-line, …). Changing the brand = changing this file.
+   ============================================================================ */
+
+@theme {
+  /* -- brand ramp: an indigo scale anchored on the logo blue at 700 --------
+     Every cyan shade in the old theme maps 1:1 onto this, so the migration is
+     mechanical and the contrast relationships survive. */
+  --color-brand-50:   #EFEDFF;
+  --color-brand-100:  #DEDAFF;
+  --color-brand-200:  #C2BBFF;
+  --color-brand-300:  #A79CFF;
+  --color-brand-400:  #8B7DFF;
+  --color-brand-500:  #7C71FF;
+  --color-brand-600:  #5B4DF5;
+  --color-brand-700:  #2E22E6;   /* the logo blue */
+  --color-brand-800:  #241BB4;
+  --color-brand-900:  #1B1499;
+  --color-brand-950:  #0F0A5E;
+
+  /* -- brand ------------------------------------------------------------- */
+  --color-brand:        #2E22E6;  /* the mark's blue. Fills and solids.      */
+  --color-brand-lift:   #7C71FF;  /* text-safe on dark grounds (4.5:1+).     */
+  --color-brand-deep:   #1B1499;  /* pressed states, shadows, gradients.     */
+  --color-accent:       #E20207;  /* the parting line. Emphasis only.        */
+  --color-accent-lift:  #FF6B70;  /* accent as text on dark.                 */
+
+  /* -- ground: neutrals biased toward the brand hue, never pure grey ------ */
+  --color-ink-950:      #06071A;
+  --color-ink-900:      #0B0D24;
+  --color-ink-850:      #101334;
+  --color-ink-800:      #161A40;
+  --color-ink-700:      #232A5E;
+  --color-ink-600:      #343C7A;
+
+  /* -- foreground -------------------------------------------------------- */
+  --color-fg:           #D8DAF0;
+  --color-fg-muted:     #9EA2CC;
+  --color-fg-dim:       #6E73A2;
+  --color-fg-max:       #FFFFFF;
+
+  /* -- semantic (separate from the accent, never used decoratively) ------- */
+  --color-ok:           #4BD3A0;
+  --color-warn:         #E8A33D;
+  --color-crit:         #E20207;
+
+  /* -- motion: one easing vocabulary for the whole site ------------------- */
+  --ease-out-expo:      cubic-bezier(0.16, 1, 0.30, 1);
+  --ease-in-out-quart:  cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring:        cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:           180ms;
+  --dur-base:           420ms;
+  --dur-slow:           900ms;
+  --dur-cinematic:      1600ms;
+}
+
+/* Plain-variable mirror, for SVG `var(--mkrd-blue)`, canvas fills and
+   three.js material colours, which cannot read Tailwind theme values. */
+:root {
+  --mkrd-blue:  #2E22E6;
+  --mkrd-red:   #E20207;
+  --mkrd-white: #FFFFFF;
+}
+
+/* The one gradient the brand allows: brand blue into deep, never rainbow.
+   Replaces the nine orange-to-yellow heading gradients currently in use. */
+.text-brand-gradient {
+  background-image: linear-gradient(100deg, var(--color-brand-lift), var(--color-brand) 55%, var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

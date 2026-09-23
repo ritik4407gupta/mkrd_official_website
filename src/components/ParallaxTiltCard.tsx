@@ -40,7 +40,7 @@ export const ParallaxTiltCard: React.FC<ParallaxTiltCardProps> = ({
 
   const isGemini = variant === 'gemini';
 
-  const defaultGlow = isGemini ? 'rgba(59, 130, 246, 0.15)' : 'rgba(34, 211, 238, 0.10)';
+  const defaultGlow = isGemini ? 'rgba(59, 130, 246, 0.15)' : 'rgba(139, 125, 255, 0.10)';
   const activeGlow = glowColor || defaultGlow;
   
   const background = useMotionTemplate`radial-gradient(400px circle at ${mouseX}px ${mouseY}px, ${activeGlow}, transparent 40%)`;
@@ -87,7 +87,7 @@ export const ParallaxTiltCard: React.FC<ParallaxTiltCardProps> = ({
           initial={{ top: '-10%', opacity: 0 }}
           animate={{ top: '110%', opacity: [0, 1, 1, 0] }}
           transition={{ duration: 1.5, ease: 'linear' }}
-          className="absolute left-0 right-0 h-[2px] bg-yellow-400 z-30 shadow-[0_0_20px_5px_rgba(250,204,21,0.4)] pointer-events-none"
+          className="absolute left-0 right-0 h-[2px] bg-brand-400 z-30 shadow-[0_0_20px_5px_rgba(226,2,7,0.4)] pointer-events-none"
         />
       )}
 

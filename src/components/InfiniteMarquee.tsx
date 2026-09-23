@@ -29,7 +29,7 @@ export const InfiniteMarquee: React.FC = () => {
         {[...CLIENT_PARTNERS, ...CLIENT_PARTNERS, ...CLIENT_PARTNERS, ...CLIENT_PARTNERS].map((partner, idx) => {
           const Icon = icons[idx % icons.length];
           return (
-            <div key={idx} className="flex items-center gap-4 text-slate-500 hover:text-cyan-400 transition-colors duration-300 cursor-pointer">
+            <div key={idx} className="flex items-center gap-4 text-slate-500 hover:text-brand-400 transition-colors duration-300 cursor-pointer">
               <Icon className="w-8 h-8" />
               <span className="font-display font-black text-2xl sm:text-4xl uppercase tracking-tighter">
                 {partner.name}

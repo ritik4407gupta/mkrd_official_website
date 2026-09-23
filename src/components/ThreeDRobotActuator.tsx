@@ -282,7 +282,7 @@ export const ThreeDRobotActuator: React.FC = () => {
         <div className="absolute top-4 left-4 bg-slate-950/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-xs font-mono space-y-1">
           <div className="text-[10px] text-slate-400 uppercase font-bold">Joint Kinematics</div>
           <div className="text-blue-400">J1 (BASE): {baseRotation}°</div>
-          <div className="text-indigo-400">J2 (SHOULDER): {armAngle}°</div>
+          <div className="text-brand-400">J2 (SHOULDER): {armAngle}°</div>
           <div className="text-emerald-400">J3 (GRIPPER): {gripperClamp}%</div>
           <div className="text-slate-400 text-[11px]">REPEATABILITY: ±0.015 mm</div>
         </div>
@@ -308,7 +308,7 @@ export const ThreeDRobotActuator: React.FC = () => {
         <div>
           <div className="flex justify-between text-slate-300 mb-1.5">
             <span>ARM EXTENSION (J2):</span>
-            <span className="text-indigo-300 font-bold">{armAngle}°</span>
+            <span className="text-brand-300 font-bold">{armAngle}°</span>
           </div>
           <input
             type="range"
@@ -316,7 +316,7 @@ export const ThreeDRobotActuator: React.FC = () => {
             max="75"
             value={armAngle}
             onChange={(e) => setArmAngle(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500"
           />
         </div>
 

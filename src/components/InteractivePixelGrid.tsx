@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const PixelCursorGrid = ({ color = "#06b6d4" }) => {
+const PixelCursorGrid = ({ color = "#7C71FF" }) => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport } = useThree();
   
@@ -138,7 +138,7 @@ const PixelCursorGrid = ({ color = "#06b6d4" }) => {
   );
 };
 
-export const InteractivePixelGrid = ({ color = "#0ea5e9" }) => {
+export const InteractivePixelGrid = ({ color = "#6E5FFF" }) => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 22], fov: 40 }} gl={{ powerPreference: "high-performance", antialias: false }}>

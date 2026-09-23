@@ -16,7 +16,7 @@ export const SplitTextReveal: React.FC<SplitTextRevealProps> = ({
   className = "",
   staggerDuration = 0.03,
   highlightWords = [],
-  highlightClass = "text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400"
+  highlightClass = "text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-accent"
 }) => {
   const words = text.split(" ");
 
@@ -33,13 +33,13 @@ export const SplitTextReveal: React.FC<SplitTextRevealProps> = ({
       opacity: 1,
       y: 0,
       rotateX: 0,
-      transition: { type: "spring", damping: 12, stiffness: 200 },
+      transition: { type: "spring" as const, damping: 12, stiffness: 200 },
     },
     hidden: {
       opacity: 0,
       y: 20,
       rotateX: -90,
-      transition: { type: "spring", damping: 12, stiffness: 200 },
+      transition: { type: "spring" as const, damping: 12, stiffness: 200 },
     },
   };
 

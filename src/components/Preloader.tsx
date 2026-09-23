@@ -5,7 +5,7 @@ import { Hexagon, Cpu, Settings, Orbit } from 'lucide-react';
 
 const TearLineSVG = ({ svgPathData, pathLength, strokeDashoffset, pathRef }: any) => (
   <svg
-    className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]"
+    className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none drop-shadow-[0_0_15px_rgba(139,125,255,0.8)]"
     viewBox="0 0 100 100"
     preserveAspectRatio="none"
   >
@@ -13,7 +13,7 @@ const TearLineSVG = ({ svgPathData, pathLength, strokeDashoffset, pathRef }: any
       ref={pathRef}
       d={svgPathData}
       fill="none"
-      stroke="#22d3ee"
+      stroke="#8B7DFF"
       strokeWidth="0.2"
       strokeLinecap="square"
       strokeLinejoin="miter"
@@ -28,25 +28,28 @@ const TearLineSVG = ({ svgPathData, pathLength, strokeDashoffset, pathRef }: any
 const VideoBackground = () => (
   <>
     <video
-      src="/videos/engineering-bg.mp4"
+      poster="/videos/engineering-bg-poster.jpg"
       autoPlay
       loop
       muted
       playsInline
+      preload="none"
       className="absolute top-0 left-0 w-full h-full object-cover"
-    />
+    >
+      <source src="/videos/engineering-bg.mp4" type="video/mp4" />
+    </video>
     <div className="absolute top-0 left-0 w-full h-full bg-slate-900/40" />
   </>
 );
 
 const RingLoader = () => (
-  <div className="absolute top-1/2 left-1/2 w-[250px] h-[250px] pointer-events-none z-5 -translate-x-1/2 -translate-y-[40%] animate-[ring-spin_10s_linear_infinite] drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]">
+  <div className="absolute top-1/2 left-1/2 w-[250px] h-[250px] pointer-events-none z-5 -translate-x-1/2 -translate-y-[40%] animate-[ring-spin_10s_linear_infinite] drop-shadow-[0_0_15px_rgba(139,125,255,0.8)]">
     <svg width="250" height="250" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
-      <circle cx="50" cy="50" r="45" fill="none" stroke="#22d3ee" strokeWidth="2" strokeLinecap="square" strokeDasharray="10 15" opacity="0.9" />
-      <circle cx="50" cy="50" r="35" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="square" strokeDasharray="5 10" opacity="0.6" style={{ animation: 'ring-spin-reverse 4s linear infinite', transformOrigin: '50% 50%' }} />
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#8B7DFF" strokeWidth="2" strokeLinecap="square" strokeDasharray="10 15" opacity="0.9" />
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#5B4DF5" strokeWidth="1.5" strokeLinecap="square" strokeDasharray="5 10" opacity="0.6" style={{ animation: 'ring-spin-reverse 4s linear infinite', transformOrigin: '50% 50%' }} />
       <circle cx="50" cy="50" r="28" fill="none" stroke="#60a5fa" strokeWidth="1" strokeDasharray="2 4" opacity="0.4" style={{ animation: 'ring-spin 6s linear infinite', transformOrigin: '50% 50%' }} />
       {/* Outer framing ring */}
-      <circle cx="50" cy="50" r="52" fill="none" stroke="#0ea5e9" strokeWidth="0.5" strokeDasharray="1 6" opacity="0.3" style={{ animation: 'ring-spin-reverse 20s linear infinite', transformOrigin: '50% 50%' }} />
+      <circle cx="50" cy="50" r="52" fill="none" stroke="#6E5FFF" strokeWidth="0.5" strokeDasharray="1 6" opacity="0.3" style={{ animation: 'ring-spin-reverse 20s linear infinite', transformOrigin: '50% 50%' }} />
     </svg>
     <style>{`
       @keyframes ring-spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
@@ -200,7 +203,7 @@ const Preloader = ({ onComplete, ready }: any) => {
 
   const halfStyle: React.CSSProperties = {
     position: 'absolute', top: 0, bottom: 0, width: '100%', height: '100%',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0B0D24',
     overflow: 'hidden',
     willChange: 'transform',
     filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.5))'
@@ -212,9 +215,9 @@ const Preloader = ({ onComplete, ready }: any) => {
         <VideoBackground />
         <div style={percentageStyle}>
           <div className="flex flex-col items-center justify-center relative z-10">
-            <img src="/images/mkrd-logo.png" alt="MKRD Logo" className="w-[400px] mb-8 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-            <span className="text-sm font-bold text-cyan-400 mb-1 tracking-[0.3em] drop-shadow-[0_0_5px_rgba(0,0,0,0.8)]">SYSTEM INITIALIZING</span>
-            <span ref={textLeftRef} className="text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,1)]">{percentageText}</span>
+            <img src="/images/mkrd-logo.png" alt="MKRD Logo" className="w-[400px] mb-8 drop-shadow-[0_0_15px_rgba(139,125,255,0.8)]" />
+            <span className="text-sm font-bold text-brand-400 mb-1 tracking-[0.3em] drop-shadow-[0_0_5px_rgba(0,0,0,0.8)]">SYSTEM INITIALIZING</span>
+            <span ref={textLeftRef} className="text-brand-300 drop-shadow-[0_0_8px_rgba(139,125,255,1)]">{percentageText}</span>
           </div>
           <RingLoader />
         </div>
@@ -224,9 +227,9 @@ const Preloader = ({ onComplete, ready }: any) => {
         <VideoBackground />
         <div style={percentageStyle}>
           <div className="flex flex-col items-center justify-center relative z-10">
-            <img src="/images/mkrd-logo.png" alt="MKRD Logo" className="w-[400px] mb-8 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-            <span className="text-sm font-bold text-cyan-400 mb-1 tracking-[0.3em] drop-shadow-[0_0_5px_rgba(0,0,0,0.8)]">SYSTEM INITIALIZING</span>
-            <span ref={textRightRef} className="text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,1)]">{percentageText}</span>
+            <img src="/images/mkrd-logo.png" alt="MKRD Logo" className="w-[400px] mb-8 drop-shadow-[0_0_15px_rgba(139,125,255,0.8)]" />
+            <span className="text-sm font-bold text-brand-400 mb-1 tracking-[0.3em] drop-shadow-[0_0_5px_rgba(0,0,0,0.8)]">SYSTEM INITIALIZING</span>
+            <span ref={textRightRef} className="text-brand-300 drop-shadow-[0_0_8px_rgba(139,125,255,1)]">{percentageText}</span>
           </div>
           <RingLoader />
         </div>

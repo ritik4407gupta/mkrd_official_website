@@ -25,12 +25,12 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
   };
 
   return (
-    <footer className="bg-[#020617] pt-20 pb-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-slate-300 font-sans">
+    <footer className="bg-[#06071A] pt-12 pb-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-slate-300 font-sans">
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-grid-tech opacity-10 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-900/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-brand-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10 space-y-16 lg:space-y-24">
+      <div className="max-w-7xl mx-auto relative z-10 space-y-12 lg:space-y-16">
         
         {/* 1. Pre-footer conversion zone */}
         <motion.div 
@@ -41,34 +41,35 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
           className="border border-slate-800/80 bg-slate-900/30 p-8 sm:p-12 rounded-xl flex flex-col xl:flex-row items-start xl:items-center justify-between gap-8 relative overflow-hidden"
         >
           {/* Subtle blueprint highlight on top of the border */}
-          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-500/40 to-transparent" />
           
           <div className="space-y-4 max-w-2xl relative z-10">
-            <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full inline-block animate-pulse"></span>
+            <span className="text-[10px] font-mono font-bold text-brand-400 uppercase tracking-widest flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-brand-400 rounded-full inline-block animate-pulse"></span>
               READY TO BUILD WHAT’S NEXT?
             </span>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-white tracking-tight leading-tight">
-              From Digital Concept to <br className="hidden sm:block" /> Industrial Reality.
+              Send the part. <br className="hidden sm:block" /> We will tell you what it takes.
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed max-w-xl">
-              End-to-end engineering excellence. We build the future through precision tooling, 3D printing, robotics, custom software systems, and robust digital infrastructure.
+              3D printing in resin and FDM, desktop and web software we ship and licence, and 360°
+              tours you can walk through. Mould, die and fixture work goes to our engineering side.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 shrink-0 relative z-10 w-full xl:w-auto">
             <button
               onClick={onOpenQuoteModal}
-              className="group px-7 py-4 bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-800/50 hover:border-cyan-500 text-white font-medium text-sm transition-all flex items-center justify-center gap-3 relative overflow-hidden rounded-md"
+              className="group px-7 py-4 bg-brand-950/40 hover:bg-brand-900/60 border border-brand-800/50 hover:border-brand-500 text-white font-medium text-sm transition-all flex items-center justify-center gap-3 relative overflow-hidden rounded-md"
             >
               <span className="relative z-10">Request an Engineering Quote</span>
-              <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform relative z-10" />
+              <ArrowRight className="w-4 h-4 text-brand-400 group-hover:translate-x-1 transition-transform relative z-10" />
             </button>
             <a
               href={`tel:${COMPANY_DETAILS.phone}`}
               className="group px-7 py-4 bg-slate-900/50 border border-slate-800 hover:border-slate-600 text-slate-300 hover:text-white font-medium text-sm transition-all flex items-center justify-center gap-3 rounded-md"
             >
-              <Phone className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 group-hover:scale-110 transition-transform" />
+              <Phone className="w-4 h-4 text-slate-400 group-hover:text-brand-400 group-hover:scale-110 transition-transform" />
               <span>{COMPANY_DETAILS.phoneFormatted}</span>
             </a>
           </div>
@@ -85,12 +86,12 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
             </p>
             <div className="space-y-2.5 font-mono text-[11px] text-slate-500 pt-2">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-3.5 h-3.5 mt-0.5 text-cyan-500 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 mt-0.5 text-brand-500 shrink-0" />
                 <span className="text-slate-400 leading-relaxed">{COMPANY_DETAILS.address}</span>
               </div>
-              <div className="pl-6">CIN: {COMPANY_DETAILS.cin}</div>
+              {COMPANY_DETAILS.gstin && <div className="pl-6">GSTIN: {COMPANY_DETAILS.gstin}</div>}
               <div className="pl-6">Est. {COMPANY_DETAILS.established}</div>
-              <div className="pl-6 text-cyan-500/80 font-medium">{COMPANY_DETAILS.isoCertified}</div>
+              <div className="pl-6 text-brand-500/80 font-medium">{COMPANY_DETAILS.credential}</div>
             </div>
           </div>
 
@@ -111,9 +112,9 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
                 <li key={link.name}>
                   <button 
                     onClick={() => handleNavClick(link.path)} 
-                    className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-2.5 group"
+                    className="text-slate-400 hover:text-brand-400 transition-colors flex items-center gap-2.5 group"
                   >
-                    <span className="w-0 overflow-hidden group-hover:w-2 transition-all duration-300 ease-out h-[1px] bg-cyan-400 block" />
+                    <span className="w-0 overflow-hidden group-hover:w-2 transition-all duration-300 ease-out h-[1px] bg-brand-400 block" />
                     <span className="group-hover:translate-x-1 transition-transform duration-300 text-left">{link.name}</span>
                   </button>
                 </li>
@@ -127,28 +128,28 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
               Capabilities
             </h4>
             <ul className="space-y-3.5 text-sm text-slate-400">
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <Box className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <Box className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>3D Printing & Prototyping</span>
               </li>
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <Factory className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <Factory className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>Injection Mould & Tooling</span>
               </li>
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <Cpu className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <Cpu className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>Industrial Automation & Robotics</span>
               </li>
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <Layers className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <Layers className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>Digital Twins & Virtual Tours</span>
               </li>
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <GitBranch className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <GitBranch className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>Custom Software Systems</span>
               </li>
-              <li className="flex items-center gap-3 group cursor-pointer hover:text-cyan-400 transition-colors">
-                <Shield className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" /> 
+              <li className="flex items-center gap-3 group cursor-pointer hover:text-brand-400 transition-colors">
+                <Shield className="w-4 h-4 text-slate-600 group-hover:text-brand-400 transition-colors" /> 
                 <span>Network Infrastructure</span>
               </li>
             </ul>
@@ -161,25 +162,25 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
             </h4>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <a href={`tel:${COMPANY_DETAILS.phone}`} className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-3 group">
-                  <Phone className="w-4 h-4 text-slate-600 group-hover:text-cyan-400" />
+                <a href={`tel:${COMPANY_DETAILS.phone}`} className="text-slate-400 hover:text-brand-400 transition-colors flex items-center gap-3 group">
+                  <Phone className="w-4 h-4 text-slate-600 group-hover:text-brand-400" />
                   <span>{COMPANY_DETAILS.phoneFormatted}</span>
                 </a>
               </li>
               <li>
-                <a href={`mailto:${COMPANY_DETAILS.email}`} className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-3 group">
-                  <Mail className="w-4 h-4 text-slate-600 group-hover:text-cyan-400" />
+                <a href={`mailto:${COMPANY_DETAILS.email}`} className="text-slate-400 hover:text-brand-400 transition-colors flex items-center gap-3 group">
+                  <Mail className="w-4 h-4 text-slate-600 group-hover:text-brand-400" />
                   <span>{COMPANY_DETAILS.email}</span>
                 </a>
               </li>
               <li className="text-slate-500 flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-slate-700" />
-                <span>Gurgaon, Haryana, India</span>
+                <span>Gurugram, Haryana, India</span>
               </li>
               <li className="pt-2">
                 <button 
                   onClick={onOpenQuoteModal}
-                  className="text-cyan-500 hover:text-cyan-400 text-sm font-medium transition-colors flex items-center gap-2 group"
+                  className="text-brand-500 hover:text-brand-400 text-sm font-medium transition-colors flex items-center gap-2 group"
                 >
                   Request Quote
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -209,16 +210,21 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
             PRECISION ENGINEERING / DIGITAL SYSTEMS / INDUSTRIAL FUTURES
           </motion.div>
           
-          <div className="relative w-full flex justify-center h-32 sm:h-48 md:h-64 lg:h-[22rem] items-end overflow-hidden pb-4">
+          {/* The wordmark used to be set in #060c21 against a #06071A page — a
+              difference of a few points per channel, so it read as three hundred
+              pixels of nothing. It is a watermark either way; it just has to be
+              visible enough to be worth the height it takes. */}
+          <div className="relative w-full flex justify-center h-28 sm:h-40 md:h-56 lg:h-[17rem] items-end overflow-visible pb-4">
             {/* Ambient hover glow */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-1/2 bg-cyan-600/0 group-hover:bg-cyan-600/10 transition-colors duration-1000 blur-3xl rounded-[100%] pointer-events-none" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-1/2 bg-brand-600/0 group-hover:bg-brand-600/10 transition-colors duration-1000 blur-3xl rounded-[100%] pointer-events-none" />
             
-            <motion.h1 
+            <motion.div
+              aria-hidden
               initial={{ opacity: 0, y: "30%" }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[28vw] sm:text-[25vw] font-display font-black leading-[0.8] text-[#060c21] group-hover:text-[#0a1630] transition-colors duration-700 whitespace-nowrap cursor-default z-10"
+              className="text-[26vw] sm:text-[21vw] font-display font-black leading-[0.8] text-white/[0.055] group-hover:text-white/[0.10] transition-colors duration-700 whitespace-nowrap cursor-default z-10"
             >
               <span className="relative inline-block">
                 MKRD
@@ -227,10 +233,10 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
                   initial={{ x: "-100%" }}
                   animate={{ x: "200%" }}
                   transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
-                  className="w-1/2 h-full bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent absolute top-0 -left-[50%] opacity-0 group-hover:opacity-100 pointer-events-none mix-blend-overlay"
+                  className="w-1/2 h-full bg-gradient-to-r from-transparent via-brand-400/10 to-transparent absolute top-0 -left-[50%] opacity-0 group-hover:opacity-100 pointer-events-none mix-blend-overlay"
                 />
               </span>
-            </motion.h1>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -240,14 +246,14 @@ export const FooterBrandReveal: React.FC<FooterBrandRevealProps> = ({
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-center sm:justify-start">
           <span>© {new Date().getFullYear()} MKRD Engineers Pvt. Ltd.</span>
           <span className="hidden sm:inline text-slate-700">•</span>
-          <span className="text-cyan-700 font-medium">ISO 9001:2015</span>
+          <span className="text-brand-700 font-medium">Gurugram, Haryana</span>
         </div>
         <div className="flex items-center gap-6">
           <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-slate-300 transition-colors">Terms</a>
           <button 
             onClick={scrollToTop}
-            className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all hover:-translate-y-1"
+            className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 transition-all hover:-translate-y-1"
             aria-label="Back to top"
             title="Back to top"
           >

@@ -12,6 +12,12 @@ interface NewOpeningIntroProps {
   onComplete: () => void;
 }
 
+/**
+ * DEPRECATED — superseded by components/entrance/MkrdEntrance.tsx.
+ * Nothing imports this any more; it is kept only so the old sequence is
+ * recoverable from git. Safe to delete along with EntranceDoors.tsx,
+ * entrance3d/, Preloader.tsx and TransitionTextSequence.tsx.
+ */
 export const NewOpeningIntro: React.FC<NewOpeningIntroProps> = ({ onComplete }) => {
   const [sceneReady, setSceneReady] = useState(false);
   const [preloaderDone, setPreloaderDone] = useState(false);
@@ -46,12 +52,11 @@ export const NewOpeningIntro: React.FC<NewOpeningIntroProps> = ({ onComplete }) 
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          className="fixed inset-0 z-50 bg-[#020617] overflow-hidden"
+          className="fixed inset-0 z-50 bg-[#06071A] overflow-hidden"
         >
           {/* 3D Canvas for EntranceDoors & Interactive Engineering Units */}
           <div className="absolute inset-0 w-full h-full">
             <Canvas
-              className="w-full h-full cursor-default select-none"
               camera={{
                 position: [0, 0.2, 28],
                 fov: 60,
@@ -62,8 +67,8 @@ export const NewOpeningIntro: React.FC<NewOpeningIntroProps> = ({ onComplete }) 
               dpr={[1, 2]}
               onCreated={() => setSceneReady(true)}
             >
-              <color attach="background" args={['#020617']} />
-              <fog attach="fog" args={['#020617', 18, 55]} />
+              <color attach="background" args={['#06071A']} />
+              <fog attach="fog" args={['#06071A', 18, 55]} />
               
               {!doorFinished && (
                 <Suspense fallback={null}>

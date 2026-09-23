@@ -124,7 +124,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       <mesh position={[0, 0.25, 0]}>
         <boxGeometry args={[1.2, 0.5, 1.0]} />
         <meshStandardMaterial
-          color={hovered ? '#1e293b' : '#0f172a'}
+          color={hovered ? '#161A40' : '#0B0D24'}
           metalness={0.8}
           roughness={0.3}
         />
@@ -134,7 +134,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.75, 0.85, 32]} />
         <meshBasicMaterial
-          color={hovered ? '#06b6d4' : '#0284c7'}
+          color={hovered ? '#7C71FF' : '#5B4DF5'}
           transparent
           opacity={hovered ? 0.9 : 0.4}
         />
@@ -143,7 +143,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       {/* Printer Chassis Bottom Tray */}
       <mesh position={[0, 0.53, 0]}>
         <boxGeometry args={[1.0, 0.08, 0.85]} />
-        <meshStandardMaterial color="#0284c7" metalness={0.9} roughness={0.2} />
+        <meshStandardMaterial color="#5B4DF5" metalness={0.9} roughness={0.2} />
       </mesh>
 
       {/* Frame Pillars (4 vertical rails) */}
@@ -152,7 +152,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
           <mesh key={`p-${xi}-${zi}`} position={[x, 1.15, z]}>
             <boxGeometry args={[0.05, 1.2, 0.05]} />
             <meshStandardMaterial
-              color={hovered ? '#38bdf8' : '#334155'}
+              color={hovered ? '#8B7DFF' : '#232A5E'}
               metalness={0.9}
               roughness={0.1}
             />
@@ -163,14 +163,14 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       {/* Top Crossbar Cap */}
       <mesh position={[0, 1.75, 0]}>
         <boxGeometry args={[1.0, 0.06, 0.85]} />
-        <meshStandardMaterial color="#0f172a" metalness={0.8} roughness={0.3} />
+        <meshStandardMaterial color="#0B0D24" metalness={0.8} roughness={0.3} />
       </mesh>
 
       {/* Acrylic Glass Enclosure Panels */}
       <mesh position={[0, 1.15, 0]}>
         <boxGeometry args={[0.96, 1.18, 0.8]} />
         <meshPhysicalMaterial
-          color="#38bdf8"
+          color="#8B7DFF"
           transparent
           opacity={0.15}
           roughness={0.1}
@@ -182,15 +182,15 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       {/* Heated Bed (Build Platform) */}
       <mesh position={[0, 0.65, 0]}>
         <boxGeometry args={[0.65, 0.04, 0.55]} />
-        <meshStandardMaterial color="#1e293b" metalness={0.8} roughness={0.3} />
+        <meshStandardMaterial color="#161A40" metalness={0.8} roughness={0.3} />
       </mesh>
 
       {/* Heated Bed Neon Grid Top Surface */}
       <mesh position={[0, 0.675, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[0.62, 0.52]} />
         <meshStandardMaterial
-          color="#06b6d4"
-          emissive="#0891b2"
+          color="#7C71FF"
+          emissive="#5B4DF5"
           emissiveIntensity={hovered ? 0.6 : 0.25}
           wireframe
         />
@@ -207,21 +207,21 @@ export const Printer3D: React.FC<Printer3DProps> = ({
         {/* Head Block */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[0.16, 0.12, 0.14]} />
-          <meshStandardMaterial color="#0284c7" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color="#5B4DF5" metalness={0.8} roughness={0.2} />
         </mesh>
 
         {/* Cooling Fan Shroud */}
         <mesh position={[0.09, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.04, 0.04, 0.03, 16]} />
-          <meshStandardMaterial color="#0f172a" />
+          <meshStandardMaterial color="#0B0D24" />
         </mesh>
 
         {/* Glowing Extruder Tip (Cone) */}
         <mesh position={[0, -0.08, 0]} rotation={[Math.PI, 0, 0]}>
           <coneGeometry args={[0.03, 0.06, 16]} />
           <meshStandardMaterial
-            color="#f59e0b"
-            emissive={activeCycle ? '#38bdf8' : '#f97316'}
+            color="#8B7DFF"
+            emissive={activeCycle ? '#8B7DFF' : '#7C71FF'}
             emissiveIntensity={hovered ? 1.8 : 1.0}
             metalness={0.9}
           />
@@ -232,7 +232,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
       <pointLight
         ref={nozzleLightRef}
         position={[0, 0.72, 0]}
-        color={activeCycle ? '#38bdf8' : '#f97316'}
+        color={activeCycle ? '#8B7DFF' : '#7C71FF'}
         intensity={hovered ? 3.0 : 1.5}
         distance={2.5}
       />
@@ -243,8 +243,8 @@ export const Printer3D: React.FC<Printer3DProps> = ({
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[0.15, 0.04, 12, 24]} />
           <meshStandardMaterial
-            color={activeCycle ? '#38bdf8' : '#06b6d4'}
-            emissive={activeCycle ? '#0284c7' : '#0891b2'}
+            color={activeCycle ? '#8B7DFF' : '#7C71FF'}
+            emissive={activeCycle ? '#5B4DF5' : '#5B4DF5'}
             emissiveIntensity={hovered ? 0.5 : 0.2}
             metalness={0.6}
             roughness={0.3}
@@ -254,7 +254,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
         {/* Center Pinion */}
         <mesh>
           <cylinderGeometry args={[0.06, 0.06, 0.1, 16]} />
-          <meshStandardMaterial color="#0f172a" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.8} roughness={0.2} />
         </mesh>
       </group>
 
@@ -263,7 +263,7 @@ export const Printer3D: React.FC<Printer3DProps> = ({
         <planeGeometry args={[0.35, 0.2]} />
         <meshStandardMaterial
           color="#0b1329"
-          emissive="#0284c7"
+          emissive="#5B4DF5"
           emissiveIntensity={hovered ? 0.7 : 0.35}
         />
       </mesh>
@@ -280,20 +280,20 @@ export const Printer3D: React.FC<Printer3DProps> = ({
             hovered ? 'scale-105 opacity-100' : 'scale-90 opacity-80'
           }`}
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/60 shadow-[0_0_20px_rgba(6,182,212,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span className="font-bold text-cyan-300">ADDITIVE FAB PRO-X</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-brand-500/60 shadow-[0_0_20px_rgba(124,113,255,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping" />
+            <span className="font-bold text-brand-300">ADDITIVE FAB PRO-X</span>
             <span className="text-[10px] text-slate-400">|</span>
-            <span className="text-[10px] text-amber-400 font-semibold">245°C HOTBED</span>
+            <span className="text-[10px] text-brand-400 font-semibold">245°C HOTBED</span>
           </div>
 
           {hovered && (
-            <div className="p-3 rounded-xl bg-slate-950/95 border border-cyan-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
-              <div className="font-bold text-cyan-400 text-xs mb-1 font-display">Industrial Additive Cell</div>
+            <div className="p-3 rounded-xl bg-slate-950/95 border border-brand-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
+              <div className="font-bold text-brand-400 text-xs mb-1 font-display">Industrial Additive Cell</div>
               <p className="text-[11px] text-slate-300 leading-snug">
                 Direct sintering of Carbon-PEEK & Titanium alloys with optical micron-level verification.
               </p>
-              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-cyan-300">
+              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-brand-300">
                 <span>LAYER: 384/520</span>
                 <span className="text-emerald-400">TOLERANCE: ±0.01mm</span>
               </div>

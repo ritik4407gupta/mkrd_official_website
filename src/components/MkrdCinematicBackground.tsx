@@ -12,7 +12,7 @@ const MkrdStencil: React.FC = () => (
       fontFamily="system-ui, -apple-system, sans-serif" 
       fontWeight="900" 
       fontSize="26" 
-      fill="#020617" 
+      fill="#06071A" 
       textAnchor="middle" 
       letterSpacing="2"
     >
@@ -53,12 +53,15 @@ const MarqueeRow: React.FC<{ reverse?: boolean; speed?: number }> = ({ reverse =
 
 export const MkrdCinematicBackground: React.FC = () => {
   return (
-    <div className="fixed inset-0 overflow-hidden bg-[#020617] z-0 pointer-events-none flex items-center justify-center">
+    <div className="fixed inset-0 overflow-hidden bg-[#06071A] z-0 pointer-events-none flex items-center justify-center">
       {/* 
         Container size brought back to a reasonable 200vw/200vh.
         Because rows are much taller now, 15 rows is plenty to cover 200vh.
       */}
-      <div className="absolute w-[250vw] h-[250vh] flex flex-col items-center justify-center rotate-[-25deg] scale-110 opacity-70">
+      {/* Held well back. This is a texture behind the page, and on the contact
+          page it shares the frame with a giant place-name and a board of routed
+          traces — at its old weight all three were shouting at once. */}
+      <div className="absolute w-[250vw] h-[250vh] flex flex-col items-center justify-center rotate-[-25deg] scale-110 opacity-[0.28]">
         {Array.from({ length: 15 }).map((_, i) => (
           <MarqueeRow 
             key={i} 
@@ -69,8 +72,8 @@ export const MkrdCinematicBackground: React.FC = () => {
       </div>
 
       {/* Vignette Overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#020617]/40 to-[#020617] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#06071A]/40 to-[#06071A] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#06071A] via-transparent to-[#06071A]/90 pointer-events-none" />
     </div>
   );
 };

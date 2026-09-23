@@ -15,7 +15,7 @@ export const TransitionTextSequence: React.FC<TransitionTextSequenceProps> = ({ 
   }, [onComplete]);
 
   return (
-    <div className="absolute inset-0 z-50 bg-[#020617] flex flex-col items-center justify-center overflow-hidden">
+    <div className="absolute inset-0 z-50 bg-[#06071A] flex flex-col items-center justify-center overflow-hidden">
       <div className="relative w-full max-w-5xl px-4 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6">
         
         {/* Trusted - Injected from left */}
@@ -44,8 +44,8 @@ export const TransitionTextSequence: React.FC<TransitionTextSequenceProps> = ({ 
             stiffness: 90, 
             delay: 1.1,
           }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-cyan-400 tracking-tighter uppercase text-center"
-          style={{ textShadow: '0 0 40px rgba(34, 211, 238, 0.4)' }}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-brand-400 tracking-tighter uppercase text-center"
+          style={{ textShadow: '0 0 40px rgba(139, 125, 255, 0.4)' }}
         >
           SKILLED.
         </motion.div>
@@ -75,7 +75,7 @@ export const TransitionTextSequence: React.FC<TransitionTextSequenceProps> = ({ 
             duration: 1.2,
             ease: 'easeInOut'
           }}
-          className="absolute left-[10%] right-[10%] h-1.5 bg-cyan-300 z-10 shadow-[0_0_30px_10px_rgba(34,211,238,0.6)] pointer-events-none rounded-full"
+          className="absolute left-[10%] right-[10%] h-1.5 bg-brand-300 z-10 shadow-[0_0_30px_10px_rgba(139,125,255,0.6)] pointer-events-none rounded-full"
         />
 
       </div>

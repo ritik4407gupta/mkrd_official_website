@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, FastForward, Rewind, Layers, Shield, Sparkles, Terminal, Activity, ArrowRight } from 'lucide-react';
-import printerImg from '../assets/images/printer_additive_fab_1787995499367.jpg';
-import mouldImg from '../assets/images/mould_die_engineering_1787995513683.jpg';
-import softwareImg from '../assets/images/software_microservices_tech_1787995547133.jpg';
-import tourImg from '../assets/images/virtual_tour_scanning_1787995529203.jpg';
-import heroImg from '../assets/images/hero_robotic_precision_1787995484245.jpg';
+import printerImg from '../assets/images/printer_additive_fab_1787995499367.webp';
+import mouldImg from '../assets/images/mould_die_engineering_1787995513683.webp';
+import softwareImg from '../assets/images/software_microservices_tech_1787995547133.webp';
+import tourImg from '../assets/images/virtual_tour_scanning_1787995529203.webp';
+import heroImg from '../assets/images/hero_robotic_precision_1787995484245.webp';
 
 interface CinemaClip {
   id: string;
@@ -23,7 +23,7 @@ const CINEMA_CLIPS: CinemaClip[] = [
     number: '01',
     title: 'Precision 3D Additive Layering & Prototyping',
     category: 'Prototyping + Physical Engineering',
-    description: 'High-temperature carbon composite and metal filament deposition with sub-micron layer resolution.',
+    description: 'In-house FDM additive cell at 245 x 245 x 270 mm, printing to 0.1 mm accuracy.',
     image: printerImg,
     metrics: [
       { label: 'LAYER RESOLUTION', value: '25 MICRONS' },
@@ -131,7 +131,7 @@ export const ScrollCinemaSection: React.FC = () => {
               onClick={() => setIsPlaying(!isPlaying)}
               className="px-3.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 hover:border-slate-600 text-xs font-mono text-slate-200 flex items-center gap-1.5 shadow-sm"
             >
-              {isPlaying ? <Pause className="w-3.5 h-3.5 text-amber-400" /> : <Play className="w-3.5 h-3.5 text-emerald-400" />}
+              {isPlaying ? <Pause className="w-3.5 h-3.5 text-brand-400" /> : <Play className="w-3.5 h-3.5 text-emerald-400" />}
               <span>{isPlaying ? 'Auto-Cycle ON' : 'Paused'}</span>
             </button>
           </div>

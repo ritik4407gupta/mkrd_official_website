@@ -32,7 +32,7 @@ const AGV = ({ offset, color, pathType }: { offset: number, color: string, pathT
   return (
     <group ref={agvRef}>
       <Html position={[0, 1.8, 0]} center zIndexRange={[100, 0]}>
-        <div className="bg-slate-900/80 text-cyan-300 text-[9px] font-mono px-2 py-0.5 rounded border border-cyan-500/50 whitespace-nowrap backdrop-blur-sm shadow-lg pointer-events-none">
+        <div className="bg-slate-900/80 text-brand-300 text-[9px] font-mono px-2 py-0.5 rounded border border-brand-500/50 whitespace-nowrap backdrop-blur-sm shadow-lg pointer-events-none">
           AGV Unit {pathType}-{offset}
         </div>
       </Html>
@@ -40,16 +40,16 @@ const AGV = ({ offset, color, pathType }: { offset: number, color: string, pathT
         <meshStandardMaterial color={color} roughness={0.3} metalness={0.7} />
       </Box>
       <Box args={[0.2, 0.1, 0.4]} position={[0, 0.25, 0.8]}>
-        <meshBasicMaterial color="#22d3ee" />
+        <meshBasicMaterial color="#8B7DFF" />
       </Box>
       <Box args={[1, 1.2, 1.2]} position={[0, 0.8, 0]}>
-        <meshStandardMaterial color="#0284c7" roughness={0.4} metalness={0.2} transparent opacity={0.9} />
+        <meshStandardMaterial color="#5B4DF5" roughness={0.4} metalness={0.2} transparent opacity={0.9} />
       </Box>
       <Box args={[1.4, 0.3, 0.6]} position={[0, -0.2, 0.6]}>
-        <meshStandardMaterial color="#0f172a" />
+        <meshStandardMaterial color="#0B0D24" />
       </Box>
       <Box args={[1.4, 0.3, 0.6]} position={[0, -0.2, -0.6]}>
-        <meshStandardMaterial color="#0f172a" />
+        <meshStandardMaterial color="#0B0D24" />
       </Box>
     </group>
   );
@@ -73,16 +73,16 @@ const Racks = () => {
             </Html>
           )}
           <Box args={[2, 6, 6]} position={[0, 3, 0]}>
-            <meshStandardMaterial color="#334155" wireframe />
+            <meshStandardMaterial color="#232A5E" wireframe />
           </Box>
           <Box args={[1.8, 1.2, 5.8]} position={[0, 1.5, 0]}>
-            <meshStandardMaterial color="#06b6d4" opacity={0.6} transparent />
+            <meshStandardMaterial color="#7C71FF" opacity={0.6} transparent />
           </Box>
           <Box args={[1.8, 1.2, 5.8]} position={[0, 3.5, 0]}>
-            <meshStandardMaterial color="#0ea5e9" opacity={0.4} transparent />
+            <meshStandardMaterial color="#6E5FFF" opacity={0.4} transparent />
           </Box>
           <Box args={[1.8, 1.2, 5.8]} position={[0, 5.5, 0]}>
-            <meshStandardMaterial color="#38bdf8" opacity={0.5} transparent />
+            <meshStandardMaterial color="#8B7DFF" opacity={0.5} transparent />
           </Box>
         </group>
       ))}
@@ -102,16 +102,16 @@ const BarcodeScanningStation = () => {
   return (
     <group position={[0, 0, 4]}>
        <Html position={[0, 4.5, 0]} center zIndexRange={[100, 0]}>
-          <div className="bg-slate-900/80 text-yellow-300 text-[10px] font-mono px-2 py-1 rounded border border-yellow-500/50 whitespace-nowrap backdrop-blur-sm pointer-events-none shadow-lg">
+          <div className="bg-slate-900/80 text-brand-300 text-[10px] font-mono px-2 py-1 rounded border border-brand-500/50 whitespace-nowrap backdrop-blur-sm pointer-events-none shadow-lg">
             Barcode & QR Scanning Node
           </div>
        </Html>
        
        <Box args={[4, 1.2, 1.8]} position={[0, 0.6, 0]}>
-         <meshStandardMaterial color="#1e293b" metalness={0.8} />
+         <meshStandardMaterial color="#161A40" metalness={0.8} />
        </Box>
        <Box args={[0.3, 3, 2]} position={[0, 2.7, 0]}>
-         <meshStandardMaterial color="#0f172a" />
+         <meshStandardMaterial color="#0B0D24" />
        </Box>
        <mesh ref={laserRef} position={[0, 2.7, 0]} rotation={[0, Math.PI/2, 0]}>
          <planeGeometry args={[1.8, 2.8]} />
@@ -119,10 +119,10 @@ const BarcodeScanningStation = () => {
        </mesh>
        
        <Box args={[0.9, 0.9, 0.9]} position={[-1, 1.65, 0.2]}>
-         <meshStandardMaterial color="#eab308" />
+         <meshStandardMaterial color="#8B7DFF" />
        </Box>
        <Box args={[0.9, 0.9, 0.9]} position={[1, 1.65, -0.2]}>
-         <meshStandardMaterial color="#eab308" />
+         <meshStandardMaterial color="#8B7DFF" />
        </Box>
     </group>
   );
@@ -131,8 +131,8 @@ const BarcodeScanningStation = () => {
 const AnalyticsDashboard = () => {
   return (
     <Html position={[0, 6, -8]} transform center className="pointer-events-none">
-      <div className="bg-slate-950/90 border border-cyan-500/50 p-4 rounded-xl w-72 shadow-[0_0_30px_rgba(34,211,238,0.2)] backdrop-blur-xl">
-        <h4 className="text-cyan-400 font-mono font-bold mb-3 border-b border-cyan-900 pb-2 text-xs uppercase tracking-widest flex items-center justify-between">
+      <div className="bg-slate-950/90 border border-brand-500/50 p-4 rounded-xl w-72 shadow-[0_0_30px_rgba(139,125,255,0.2)] backdrop-blur-xl">
+        <h4 className="text-brand-400 font-mono font-bold mb-3 border-b border-brand-900 pb-2 text-xs uppercase tracking-widest flex items-center justify-between">
           <span>Live Telemetry</span>
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
         </h4>
@@ -147,7 +147,7 @@ const AnalyticsDashboard = () => {
           </div>
           <div className="flex justify-between items-center">
             <span>Matplotlib / Numpy Engine</span> 
-            <span className="text-indigo-400 font-bold text-xs">ACTIVE</span>
+            <span className="text-brand-400 font-bold text-xs">ACTIVE</span>
           </div>
           <div className="flex justify-between items-center">
             <span>PDF/PPTX Reports</span> 
@@ -156,7 +156,7 @@ const AnalyticsDashboard = () => {
         </div>
         <div className="mt-4 h-16 flex items-end gap-1.5 w-full">
           {[40, 70, 45, 90, 60, 80, 50, 95, 65, 85].map((h, i) => (
-             <div key={i} className="w-full bg-gradient-to-t from-cyan-600 to-cyan-400 rounded-t-sm" style={{ height: `${h}%` }} />
+             <div key={i} className="w-full bg-gradient-to-t from-brand-600 to-brand-400 rounded-t-sm" style={{ height: `${h}%` }} />
           ))}
         </div>
       </div>
@@ -166,25 +166,26 @@ const AnalyticsDashboard = () => {
 
 export const WarehouseSimulationCanvas = () => {
   return (
-    <div className="w-full h-full bg-[#02040a] rounded-xl overflow-hidden relative flex flex-col">
+    <div className="w-full h-full bg-[#04050F] rounded-xl overflow-hidden relative flex flex-col">
       
       {/* 3D Canvas rendering */}
       <div className="flex-grow w-full relative">
         <Canvas dpr={[1, 1.5]} camera={{ position: [18, 15, 18], fov: 40 }}>
-          <color attach="background" args={['#02040a']} />
+          <color attach="background" args={['#04050F']} />
           
           <ambientLight intensity={0.6} />
           <directionalLight position={[15, 25, 15]} intensity={1.5} castShadow />
-          <pointLight position={[-10, 15, -10]} intensity={1.2} color="#06b6d4" />
-          <pointLight position={[10, 5, 10]} intensity={0.8} color="#3b82f6" />
+          <pointLight position={[-10, 15, -10]} intensity={1.2} color="#7C71FF" />
+          <pointLight position={[10, 5, 10]} intensity={0.8} color="#5B4DF5" />
           
-          <Environment preset="night" opacity={0.3} />
+          <hemisphereLight args={[0x6d7cff, 0x05060f, 0.4]} />
+          <directionalLight position={[-18, 10, -14]} intensity={0.55} color="#7C71FF" />
           
-          <Grid infiniteGrid fadeDistance={50} sectionColor="#0ea5e9" cellColor="#1e293b" position={[0, -0.01, 0]} />
+          <Grid infiniteGrid fadeDistance={50} sectionColor="#6E5FFF" cellColor="#161A40" position={[0, -0.01, 0]} />
           
           {/* Animated Fleet */}
-          <AGV offset={0} color="#f59e0b" pathType={1} />
-          <AGV offset={8} color="#f59e0b" pathType={1} />
+          <AGV offset={0} color="#8B7DFF" pathType={1} />
+          <AGV offset={8} color="#8B7DFF" pathType={1} />
           <AGV offset={2} color="#ec4899" pathType={2} />
           
           {/* Static Infrastructure */}
@@ -197,11 +198,11 @@ export const WarehouseSimulationCanvas = () => {
       </div>
 
       {/* Flexible Explanation Bar Pinned to the Bottom */}
-      <div className="w-full bg-slate-950/85 backdrop-blur-xl border-t border-cyan-900/50 p-4 md:p-6 lg:p-8 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 shadow-[0_-20px_50px_rgba(0,0,0,0.4)] z-20 transition-all duration-500">
+      <div className="w-full bg-slate-950/85 backdrop-blur-xl border-t border-brand-900/50 p-4 md:p-6 lg:p-8 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 shadow-[0_-20px_50px_rgba(0,0,0,0.4)] z-20 transition-all duration-500">
         <div className="flex-1 max-w-4xl">
           <div className="flex items-center gap-3 mb-2">
              <div className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
-             <h3 className="text-cyan-400 font-display font-black text-xl tracking-wide uppercase">WarehouseManager Pro Simulation</h3>
+             <h3 className="text-brand-400 font-display font-black text-xl tracking-wide uppercase">WarehouseManager Pro Simulation</h3>
           </div>
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
             Visualizing the enterprise-grade logistics flow. The system utilizes continuous routing logic to guide AGVs, tracks inventory passing through optical scanner nodes, securely logs operations, and generates real-time performance analytics using Matplotlib & Numpy architectures.
@@ -210,11 +211,11 @@ export const WarehouseSimulationCanvas = () => {
         
         {/* Dynamic Badges that flow flexibly */}
         <div className="flex flex-wrap items-center gap-2 xl:gap-3 shrink-0">
-          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-cyan-200">
+          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-brand-200">
             <span className="block text-slate-500 mb-0.5">Tracking</span>
             Barcode & QR
           </div>
-          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-indigo-200">
+          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-brand-200">
             <span className="block text-slate-500 mb-0.5">Analytics</span>
             Numpy & Matplotlib
           </div>
@@ -222,7 +223,7 @@ export const WarehouseSimulationCanvas = () => {
             <span className="block text-slate-500 mb-0.5">Exporting</span>
             PDF & PPTX
           </div>
-          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-rose-200">
+          <div className="bg-slate-900 border border-slate-700/50 px-3 py-1.5 rounded-lg text-[10px] font-mono text-brand-200">
             <span className="block text-slate-500 mb-0.5">Security</span>
             Bcrypt Auth
           </div>

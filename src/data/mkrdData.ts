@@ -1,16 +1,28 @@
 import { ServiceItem, ProjectCaseStudy, MaterialSpec, MachineSpec } from '../types';
 
-import heroImg from '../assets/images/hero_robotic_precision_1787995484245.jpg';
-import printerImg from '../assets/images/printer_additive_fab_1787995499367.jpg';
-import mouldImg from '../assets/images/mould_die_engineering_1787995513683.jpg';
-import tourImg from '../assets/images/virtual_tour_scanning_1787995529203.jpg';
-import softwareImg from '../assets/images/software_microservices_tech_1787995547133.jpg';
+
+// Project card visuals, generated from the real products and the real live
+// sites rather than sourced as stock photography — see
+// scripts/gen-project-visuals.py. The projects page previously used AI stock
+// photos as placeholders for work that actually exists.
+import pvSdmsSite from '../assets/projects/sdms-site.svg';
+import pvSdmsTour from '../assets/projects/sdms-tour.svg';
+import pvGstBilling from '../assets/projects/gst-billing.svg';
+import pvWarehouse from '../assets/projects/warehouse.svg';
+import pvTooling from '../assets/projects/tooling.svg';
+import svPrinting from '../assets/projects/svc-printing.svg';
+import svSoftware from '../assets/projects/svc-software.svg';
+import svWeb from '../assets/projects/svc-web.svg';
+import svTours from '../assets/projects/svc-tours.svg';
+import svNetwork from '../assets/projects/svc-network.svg';
 
 export const COMPANY_DETAILS = {
-  name: "MKRD ENGINEERS PVT. LTD.",
+  name: "MKRD",
+  legalName: "MKRD Engineers Pvt. Ltd.",
   shortName: "MKRD",
+  descriptor: "Software, Web & 3D Printing",
   tagline: "Innovating Your Digital Tomorrow. Tailored Solutions.",
-  address: "Gurgaon- Haryana (INDIA).",
+  address: "Gurugram, Haryana 122001, India",
   phone: "+91 9650020661",
   phoneFormatted: "+91 96500 20661",
   email: "mkrdengineers@gmail.com",
@@ -18,461 +30,535 @@ export const COMPANY_DETAILS = {
   coordinates: {
     lat: "28.3619° N",
     long: "76.9366° E",
-    locationName: "Gurgaon, Haryana, India"
+    locationName: "Gurugram, Haryana, India"
   },
   established: "2018",
-  isoCertified: "ISO 9001:2015 Quality Assured",
-  cin: "U29253HR2018PTC073921",
+  credential: "3D PRINTING · SOFTWARE · WEB & 360°",
+  // GSTIN rather than CIN. Left blank until the real number is supplied —
+  // everything that renders it hides the line when it is empty, and a GSTIN is
+  // never something to guess at.
+  gstin: "",
+};
+
+/**
+ * The engineering side of the same company.
+ *
+ * MKRD is one entity. This site covers the software, web, 360° and 3D printing
+ * work; the tooling practice — moulds, dies, sheet-metal tools, fixtures,
+ * reverse engineering and flow analysis — has its own site at
+ * mkrdengineers.com and is not this site's subject.
+ *
+ * It is named, linked and routed to, and deliberately not showcased at length
+ * here: a visitor with a tooling enquiry should end up on the right page rather
+ * than reading a simulation of work this site is not about.
+ */
+export const ENGINEERING_SIDE = {
+  name: "MKRD Engineers",
+  url: "https://www.mkrdengineers.com/",
+  label: "Our engineering side",
+  scope: [
+    "Plastic injection mould design — 2-plate, 3-plate, hot runner, insert over-moulding, hand mould, double ejection stroke, auto-unscrewing",
+    "Die-casting tool design — high pressure, low pressure, centre gating",
+    "Sheet-metal tool design — progressive, part tooling, layout, trimming",
+    "Jigs and fixtures — part holding, pulling, welding, and special-purpose machines",
+    "Reverse engineering — 3D scanning, 2D↔3D conversion, product modification",
+    "Mould flow analysis and assembly animation",
+  ],
+  ourPart:
+    "The printing that goes with it — fit-check parts, moulding aids and fixture prototypes made here while a tool is still on the screen.",
 };
 
 export const SERVICES: ServiceItem[] = [
   {
     id: "3d-printing-prototyping",
-    title: "Advanced 3D Printing & Prototyping",
+    title: "3D Printing & Rapid Prototyping",
     category: "additive",
-    shortDesc: "Rapid and cost-effective additive manufacturing of complex geometric prototypes with industrial polymers, resins, and metals.",
-    fullDesc: "MKRD provides cutting-edge additive manufacturing capabilities designed for rapid iteration, functional test parts, low-volume production, and complex lattice structures. From aerospace-grade carbon fiber composites to biocompatible resins, we turn CAD models into physical reality in hours.",
+    owner: "mkrd",
+    shortDesc:
+      "Both processes in-house — wire (FDM) for functional parts and liquid (resin) for fine detail — with a material grade picked per job, usually same or next day.",
+    fullDesc:
+      "These are our own machines, not a broker's. Two processes sit side by side: wire for parts that have to work, liquid for parts that have to look right or carry features a nozzle cannot resolve. Which one runs, and which grade of material goes in it, is a decision we make against your part rather than a menu you pick from blind.",
     keyBenefits: [
-      "Accelerated Development: Shorten R&D cycles from weeks to days with same-day print turnaround.",
-      "Complex Geometries: Produce internal lattice channels, overhangs, and conformal cavities impossible via traditional CNC.",
-      "Diverse Material Choices: Industrial PEEK, Carbon-Fiber PLA/Nylon, Titanium Ti64, TPU flexible elastomers, and high-temp resins.",
-      "Micro-Tolerance Precision: Layer resolution down to 25 microns for flawless cosmetic and dimensional fidelity."
+      "Two processes, one enquiry. Wire (FDM) for functional parts and fixtures; liquid (resin) for fine detail, thin walls and surface finish.",
+      "Material graded to the job, from an economical prototype grade up to carbon-filled nylon or tough resin where the part has to survive being used.",
+      "Same or next day on small parts. Send an STL or a STEP file in the morning and the part usually exists that afternoon.",
+      "No minimum order. One part is a normal job here — owning the machines is precisely what lets us take the jobs a bureau will not."
     ],
     process: [
-      { step: "01", label: "CAD Modeling & Optimization", desc: "Design evaluation, mesh validation, DfAM (Design for Additive Manufacturing) analysis." },
-      { step: "02", label: "Preparation & Slicing", desc: "Optimal orientation, layer thickness selection, support structure generation, and thermal simulation." },
-      { step: "03", label: "Precision Printing", desc: "Controlled chamber extrusion / photopolymer curing with automated bed leveling." },
-      { step: "04", label: "Post-Processing & QA", desc: "Support removal, UV cure/annealing, vapor smoothing, and CMM dimensional inspection." }
+      { step: "01", label: "File check & process choice", desc: "Mesh and solid validation, wall thickness, and a call on wire versus liquid — with a note back if the geometry will print badly as drawn." },
+      { step: "02", label: "Orientation & slicing", desc: "Orientation for strength and finish, layer height, perimeters, infill and support strategy." },
+      { step: "03", label: "Print", desc: "Wire on a heated bed at the material's own temperature profile, or liquid in the resin vat where detail is the point." },
+      { step: "04", label: "Finish & check", desc: "Support removal, resin wash and UV cure where it applies, cleanup, and a dimensional check on the features that matter." }
     ],
-    techStack: ["Industrial FDM", "SLA Photopolymer", "SLS Powder Fusion", "Carbon Fiber Matrix", "Autodesk Fusion 360", "Siemens NX"],
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop", // Additive/Prototyping
+    techStack: ["FDM / FFF — wire", "Resin — liquid", "STL · STEP · 3MF", "PLA+ · ABS · PETG · TPU · CF nylon", "Standard & tough resin"],
+    image: svPrinting,
     stats: [
-      { label: "Layer Resolution", value: "25 μm" },
-      { label: "Build Chamber", value: "450×450×500 mm" },
-      { label: "Turnaround", value: "< 24 Hours" }
-    ]
-  },
-  {
-    id: "plastic-injection-mould",
-    title: "Plastic Injection Mould & Tooling",
-    category: "engineering",
-    shortDesc: "Sub-micron precision injection mould design, die casting tool engineering, sheet-metal tooling, and mould flow thermal analysis.",
-    fullDesc: "With decades of combined tooling mastery, MKRD delivers world-class mould designs, core-cavity machining, slider/lifter mechanisms, and hot runner configurations for automotive, medical, and consumer appliance OEMs.",
-    keyBenefits: [
-      "Sub-Micron Dimensional Control: Strict GD&T tolerances ensuring tight shut-offs and flash-free parting lines.",
-      "Mould Flow Simulation: Full rheological, warpage, cooling, and sink mark analysis before steel is cut.",
-      "Extended Tool Life: Certified H13, P20, and Stavax hardened tool steels delivering 1,000,000+ cycle guarantees.",
-      "Quick-Change Modular Inserts: Fast maintenance and interchangeability for multi-cavity production lines."
-    ],
-    process: [
-      { step: "01", label: "Part Feasibility & DFM", desc: "Draft angle analysis, wall thickness uniformity, gating location optimization." },
-      { step: "02", label: "3D Tool Architecture", desc: "Multi-cavity layout, cooling channel design, ejection kinematics, slider/lifter simulation." },
-      { step: "03", label: "Mould Flow & Thermal Analysis", desc: "Pressure drop, fill time, weld line tracking, and shrinkage prediction." },
-      { step: "04", label: "CNC Machining & T1 Trial", desc: "High-speed 5-axis milling, wire EDM, hand polishing, and first-shot trial sampling." }
-    ],
-    techStack: ["Siemens NX Mold Wizard", "Moldflow Insight", "CREO Parametric", "5-Axis High Speed Milling", "Charmilles Wire EDM"],
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2071&auto=format&fit=crop", // Injection Moulding
-    stats: [
-      { label: "Tooling Tolerance", value: "±0.005 mm" },
-      { label: "Tool Life Rating", value: "1M+ Shots" },
-      { label: "Core/Cavity Steels", value: "H13 / P20 / 2316" }
-    ]
-  },
-  {
-    id: "360-virtual-tours",
-    title: "Immersive 360° Virtual Tours & Digital Twins",
-    category: "immersive",
-    shortDesc: "High-definition interactive spatial virtual experiences, LiDAR scanning, and 3D digital twins for universities, industrial plants, and real estate.",
-    fullDesc: "Bring physical campuses, industrial factories, and institutions to life with interactive 360° virtual tours. Equipped with spatial audio, interactive data hotspots, floorplan navigation, and VR headset compatibility, as proven in our landmark SDMS project.",
-    keyBenefits: [
-      "Global Reach: Showcase physical infrastructure to international stakeholders, students, and clients anytime.",
-      "Radical Transparency: Allow users to navigate every corridor, laboratory, assembly line, and facility freely.",
-      "Rich Interactive Hotspots: Embed PDF brochures, video demonstrations, equipment spec sheets, and live chat within the 360 view.",
-      "Cross-Platform Performance: Blazing fast web delivery on desktop, mobile iOS/Android, and VR headsets."
-    ],
-    process: [
-      { step: "01", label: "Site Survey & Planning", desc: "Path mapping, lighting evaluation, node placement, and architectural layout indexing." },
-      { step: "02", label: "High-Res HDR Capture", desc: "Ultra-high resolution 12K panoramic photography and spatial LiDAR point cloud capture." },
-      { step: "03", label: "Editing & Stitching", desc: "Color grading, zenith/nadir retouching, spherical HDR blending, and spatial audio alignment." },
-      { step: "04", label: "Interactive Integration", desc: "Custom branded UI, floorplans, hotspot metadata, search indexing, and CDN deployment." }
-    ],
-    techStack: ["12K HDR Panoramas", "Spatial LiDAR", "Three.js / WebGL", "Matterport / Custom Engine", "Spatial 3D Audio"],
-    image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=2100&auto=format&fit=crop", // Digital Twin / Virtual Reality
-    stats: [
-      { label: "Resolution", value: "12K Panoramic" },
-      { label: "Virtual Nodes", value: "100+ Per Facility" },
-      { label: "Engagement Lift", value: "+340%" }
+      { label: "Processes", value: "Wire + Liquid" },
+      { label: "FDM Envelope", value: "245 × 245 × 270 mm" },
+      { label: "Quoted Tolerance", value: "0.1 mm" }
     ]
   },
   {
     id: "custom-software-development",
-    title: "Custom Software & Enterprise Systems",
+    title: "Custom Software for Manufacturing",
     category: "digital",
-    shortDesc: "Innovating your digital developments with bespoke web platforms, enterprise ERP/CRM solutions, and scalable business logic.",
-    fullDesc: "We build enterprise-grade software that bridges hardware engineering and business operations. From custom manufacturing execution systems (MES) to client portals, our software delivers flawless reliability and ironclad security.",
+    owner: "mkrd",
+    shortDesc:
+      "Desktop and web applications for businesses that make and move physical things — stock, stores, documents, compliance and the reporting around them.",
+    fullDesc:
+      "We build software the way a workshop needs it: it has to work when the internet does not, it has to survive a shop-floor machine, and the numbers have to reconcile. Two of our own products are in daily commercial use — GST Billing Suite and Warehouse Manager — and both are on this site to be opened and used, not watched in a video.",
     keyBenefits: [
-      "Operational Efficiency: Automate repetitive workflows, reduce manual data entry, and streamline operations.",
-      "Greater Control: Centralized admin dashboards with real-time audit logs, telemetry, and permissions.",
-      "Limitless Scalability: Cloud-native architectures that expand effortlessly with your business expansion.",
-      "Rock-Solid Security: End-to-end encryption, role-based access control (RBAC), and regulatory compliance."
+      "Offline-first where it matters. A stores counter or a billing desk keeps working through a network outage and reconciles when the link returns.",
+      "Money handled as integers. Our billing engine carries every amount in paise with half-up rounding, so a filed return matches the ledger to the rupee.",
+      "LAN synchronisation between machines on the same site, without depending on a cloud account.",
+      "Role-gated access with an audit trail on every movement, so a stores discrepancy has a name and a timestamp against it."
     ],
     process: [
-      { step: "01", label: "Business Analysis", desc: "Requirement discovery, system architecture design, data flow diagrams." },
-      { step: "02", label: "Agile Development", desc: "Iterative sprint cycles, continuous code reviews, CI/CD pipeline integration." },
-      { step: "03", label: "Rigorous QA & Testing", desc: "Unit, integration, security vulnerability, and load stress testing." },
-      { step: "04", label: "Deployment & 24/7 Support", desc: "Zero-downtime cloud launch, telemetry monitoring, and ongoing maintenance." }
+      { step: "01", label: "Walk the process", desc: "Sit with the people doing the job now — the register, the spreadsheet, the workarounds — before any schema is drawn." },
+      { step: "02", label: "Build in slices", desc: "The narrowest useful version first, in their hands, then widen it. No six-month reveal." },
+      { step: "03", label: "Test against real data", desc: "Migrated from the existing spreadsheets and ledgers, so edge cases surface before cutover, not after." },
+      { step: "04", label: "Cutover & support", desc: "Parallel running, staff training, signed installers, then ongoing fixes and changes." }
     ],
-    techStack: ["React 19 / Next.js", "Node.js / Express", "PostgreSQL / Prisma", "Docker / Kubernetes", "Tailwind CSS"],
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop", // Software
+    techStack: ["Python / PyQt desktop", "React / TypeScript", "SQLite · PostgreSQL", "LAN sync", "Signed Windows & macOS installers"],
+    image: svSoftware,
     stats: [
-      { label: "Uptime SLA", value: "99.95%" },
-      { label: "Security Level", value: "Enterprise RBAC" },
-      { label: "Architecture", value: "Cloud-Native" }
-    ]
-  },
-  {
-    id: "automation-robotics",
-    title: "Industrial Automation & Robotics",
-    category: "engineering",
-    shortDesc: "Robotic actuators, automated inspection systems, PLC integration, and smart manufacturing workflows.",
-    fullDesc: "MKRD integrates hardware automation with smart software. We design end-of-arm tooling, automated pick-and-place fixtures, pneumatic/hydraulic actuators, and smart sensors for factory floors.",
-    keyBenefits: [
-      "Enhanced Efficiency: Multiply throughput while minimizing cycle times and labor-intensive bottlenecks.",
-      "Fault Tolerance: Intelligent sensors detecting anomalies before defects propagate downstream.",
-      "Workforce Safety: Automate dangerous handling and ergonomic strain operations.",
-      "Real-time Telemetry: Live line dashboards tracking OEE (Overall Equipment Effectiveness) in real time."
-    ],
-    process: [
-      { step: "01", label: "Assessment & Feasibility", desc: "Cycle time analysis, payload calculations, sensor requirements, safety zones." },
-      { step: "02", label: "Mechanical Implementation", desc: "Actuator fabrication, PLC ladder programming, pneumatic routing, electrical wiring." },
-      { step: "03", label: "Calibration & Training", desc: "Fine precision calibration, safety testing, and operator training documentation." }
-    ],
-    techStack: ["PLC Programming (Siemens/Omron)", "Robotic Actuators", "Modbus / MQTT IoT", "Machine Vision QA"],
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2070&auto=format&fit=crop", // Robotics/Automation
-    stats: [
-      { label: "Cycle Speedup", value: "up to 4.5x" },
-      { label: "Repeatability", value: "±0.02 mm" },
-      { label: "OEE Improvement", value: "+38%" }
-    ]
-  },
-  {
-    id: "microservices-cloud",
-    title: "Microservices & Distributed Architecture",
-    category: "digital",
-    shortDesc: "Modular, fault-tolerant microservice ecosystems connected via high-performance APIs and message brokers.",
-    fullDesc: "Break free from monolithic bottlenecks. Our microservice engineering partitions complex business domains into decoupled, containerized services that deploy and scale independently without downtime.",
-    keyBenefits: [
-      "Zero-Downtime Releases: Update individual services without taking down the entire platform.",
-      "Fault Isolation: Prevent cascading failures—a crash in one service never halts core operations.",
-      "Optimized Resource Usage: Auto-scale high-load microservices dynamically while conserving idle compute.",
-      "Multi-Language Polyglot Support: Pick the optimal runtime for each micro-domain (Node, Go, Python)."
-    ],
-    process: [
-      { step: "01", label: "Domain-Driven Design", desc: "Bounded context identification, service boundary mapping, API contracts." },
-      { step: "02", label: "Containerization & Mesh", desc: "Docker image optimization, Kubernetes orchestrations, Envoy service mesh." },
-      { step: "03", label: "Event Bus & Telemetry", desc: "Kafka/RabbitMQ asynchronous queues, Prometheus metrics, distributed tracing." }
-    ],
-    techStack: ["Kubernetes (K8s)", "Docker", "gRPC / GraphQL", "Kafka", "Prometheus & Grafana"],
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop", // Cloud/Microservices
-    stats: [
-      { label: "Fault Isolation", value: "100%" },
-      { label: "Deploy Frequency", value: "On-Demand" },
-      { label: "Latency", value: "< 15ms p99" }
-    ]
-  },
-  {
-    id: "website-development-redesign",
-    title: "Website Development & Modern Redesign",
-    category: "digital",
-    shortDesc: "High-performance, cinematic, responsive web platforms engineered to convert visitors and elevate corporate brand authority.",
-    fullDesc: "We craft bespoke digital experiences with cinematic visual hierarchy, silky smooth animations, high-contrast typography, and uncompromising mobile responsiveness that leave lasting impressions.",
-    keyBenefits: [
-      "User Engagement: Immersive storytelling and responsive interactions that keep high-value clients engaged.",
-      "Conversion Optimization: Clear user pathways, strategic CTAs, and frictionless inquiry funnels.",
-      "Distinctive Brand Identity: Bespoke aesthetics that separate your enterprise from generic corporate templates.",
-      "Lighthouse 95+ Performance: Optimized assets, instant page transitions, and SEO-first metadata."
-    ],
-    process: [
-      { step: "01", label: "Strategy & Wireframing", desc: "Brand tone analysis, information architecture, user journeys, technical specs." },
-      { step: "02", label: "Bespoke Visual Design", desc: "Typographic pairing, dark/light contrast balancing, 3D asset integration, motion choreography." },
-      { step: "03", label: "Frontend Engineering", desc: "React/TypeScript implementation, hardware-accelerated animations, responsive adaptation." },
-      { step: "04", label: "Production Launch", desc: "SSL certification, CDN distribution, analytics tracking, and speed optimization." }
-    ],
-    techStack: ["React 19", "Tailwind CSS", "Motion / GSAP", "Three.js WebGL", "Vite"],
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2128&auto=format&fit=crop", // Web Design
-    stats: [
-      { label: "Lighthouse Score", value: "98/100" },
-      { label: "Mobile Responsiveness", value: "100% Fluid" },
-      { label: "Interaction Speed", value: "60 FPS" }
-    ]
-  },
-  {
-    id: "reliable-network-solutions",
-    title: "Reliable Network & Infrastructure Solutions",
-    category: "digital",
-    shortDesc: "Robust, secure, and high-bandwidth data network infrastructure for manufacturing plants and corporate campuses.",
-    fullDesc: "MKRD designs and deploys mission-critical network backbones. From structured optical fiber cabling and software-defined WANs to managed firewall security, we ensure zero packet loss and 24/7 uptime.",
-    keyBenefits: [
-      "Reduced Downtime: Redundant failover routing and uninterruptible network topology.",
-      "Effortless Scalability: Structured backbone supporting hundreds of IoT devices, CNC links, and workstations.",
-      "Hardened Security: VLAN segmentation, firewall intrusion prevention, and encrypted access tunnels.",
-      "Proactive Monitoring: Automated SNMP diagnostics alerting network engineers before issues affect production."
-    ],
-    process: [
-      { step: "01", label: "Network Audit & Heatmap", desc: "Bandwidth profiling, RF wireless heatmapping, cable path verification." },
-      { step: "02", label: "Custom Topology Design", desc: "Core/distribution/access switch layering, VLAN security isolation." },
-      { step: "03", label: "Deployment & Termination", desc: "Cat6A/Fiber optic splicing, server rack patching, UPS backup configuration." },
-      { step: "04", label: "Ongoing NOC Support", desc: "Continuous packet monitoring, firmware security patching, and SLA management." }
-    ],
-    techStack: ["Cisco & Ubiquiti Enterprise", "OM4 Optical Fiber", "Fortinet Security", "SNMP Telemetry"],
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop", // Network Servers
-    stats: [
-      { label: "Bandwidth Cap", value: "10 Gbps SFP+" },
-      { label: "Packet Loss", value: "0.001%" },
-      { label: "Failover Time", value: "< 200ms" }
+      { label: "Products Shipped", value: "2 in daily use" },
+      { label: "Runs", value: "Offline-first" },
+      { label: "Platforms", value: "Windows · macOS · Web" }
     ]
   },
   {
     id: "billing-invoicing-software",
-    title: "Integrated Billing & Invoicing Systems",
+    title: "GST Billing & Compliance",
     category: "digital",
-    shortDesc: "Streamlined financial management, automated GST invoicing, client portals, and real-time ledger reporting.",
-    fullDesc: "Eliminate manual bookkeeping errors and speed up cash flow. MKRD's billing systems handle multi-tier pricing, recurring subscriptions, automated GST compliance, and payment gateway webhooks.",
+    owner: "mkrd",
+    shortDesc:
+      "Our own GST billing product: invoices, quotations, proforma, delivery challans and purchase orders, with e-way bills and GSTR filing support built in.",
+    fullDesc:
+      "GST Billing Suite is a product we designed, built and licence. It decides CGST + SGST versus IGST automatically from the state codes in each party's GSTIN, generates GSTR-1 data, imports and reconciles GSTR-2B, and talks to the NIC e-way bill system to generate, cancel, extend and update consignments. You can open the real interface on our simulation page and issue a document in it.",
     keyBenefits: [
-      "Accurate Records: Zero discrepancy reconciliation with automated audit trail logging.",
-      "Faster Payments: Automated payment reminder dispatch and instant UPI/Credit Card settlement links.",
-      "Rich Financial Reporting: Real-time revenue analytics, tax breakdowns, and exportable balance sheets.",
-      "Modular Integration: Seamlessly hooks into existing ERPs, inventory databases, and CRM platforms."
+      "The tax decision is made for you. Intra-state and inter-state supply is determined from the GSTIN, not left to whoever is typing.",
+      "Rounding that survives an audit. Amounts are held as integer paise and half-rate quantisation is applied before the split, so CGST + SGST always equals the total.",
+      "E-way bills without a second portal. Generate, cancel, extend validity and update vehicle or transporter from inside the invoice.",
+      "Your document numbering, not ours. Prefixes, financial-year tokens, custom fields and print templates are all configurable."
     ],
     process: [
-      { step: "01", label: "Financial Flow Mapping", desc: "Tax rules, payment terms, currency handling, invoice customization." },
-      { step: "02", label: "System Integration", desc: "Database schema creation, banking gateway webhooks, email/SMS notifications." },
-      { step: "03", label: "Staff Training & Cutover", desc: "Onboarding team, sandbox testing, data migration from legacy spreadsheets." },
-      { step: "04", label: "Generate & Track", desc: "Real-time automated invoice creation, payment status tracking, and compliance filings." }
+      { step: "01", label: "Set up the workspace", desc: "Company details, GSTIN, document series, tax rates, HSN catalogue and print templates." },
+      { step: "02", label: "Import what exists", desc: "Customers, products and opening balances brought across from spreadsheets or the previous system." },
+      { step: "03", label: "Run in parallel", desc: "A month alongside the old process, with the returns compared line by line before cutover." },
+      { step: "04", label: "File and reconcile", desc: "GSTR-1 generation, GSTR-2B import, purchase reconciliation, and support through the first filing cycles." }
     ],
-    techStack: ["Node.js / Express", "PostgreSQL", "Razorpay / Stripe Webhooks", "Automated PDF Generation"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop", // Dashboard/Finance
+    techStack: ["Python / PyQt", "SQLite", "NIC e-way bill API", "GSTR-1 / GSTR-2B", "Encrypted backup"],
+    image: pvGstBilling,
     stats: [
-      { label: "Billing Cycle Reduction", value: "70%" },
-      { label: "Tax Compliance", value: "100% GST-Ready" },
-      { label: "Payment Speedup", value: "2.4x" }
+      { label: "Document Types", value: "IN · QT · PI · DC · PO" },
+      { label: "Tax Engine", value: "CGST / SGST / IGST" },
+      { label: "Money Precision", value: "Integer paise" }
+    ]
+  },
+  {
+    id: "website-development-redesign",
+    title: "Website Design & Development",
+    category: "digital",
+    owner: "mkrd",
+    shortDesc:
+      "Responsive, fast websites for institutions and manufacturers — built, not templated. sdms.edu.in is ours, and so is the site you are reading.",
+    fullDesc:
+      "We build the whole thing: information architecture, visual design, front-end engineering and launch. The work you can check is public — the SDMS institutional site at sdms.edu.in, the 360° campus tour beside it, and this site, whose 3D scenes are generated from real engineering geometry rather than dropped in as stock.",
+    keyBenefits: [
+      "Built for the connection your visitors actually have. Assets are compressed and code-split rather than shipped whole and hoped for.",
+      "Content you can verify. We check the claims on a page against a source before it goes live — including yours.",
+      "Designed on a real system. Colour, type and motion come from one token set, so the site stays consistent as it grows.",
+      "Accessible by default. Keyboard navigation, visible focus, honest alt text and reduced-motion support are part of the build, not a later pass."
+    ],
+    process: [
+      { step: "01", label: "Structure", desc: "What the site is for, who reads it, what each page has to do, and what has to be true on it." },
+      { step: "02", label: "Design", desc: "Type pairing, colour tokens, layout system and motion language, applied across the whole site rather than page by page." },
+      { step: "03", label: "Build", desc: "React and TypeScript, code-split routes, compressed assets, WebGL where it earns its place." },
+      { step: "04", label: "Launch & keep", desc: "Deploy, analytics, and the ongoing changes a live site needs." }
+    ],
+    techStack: ["React · TypeScript", "Vite", "Tailwind CSS", "Three.js / WebGL", "Motion / GSAP"],
+    image: svWeb,
+    stats: [
+      { label: "Public Work", value: "sdms.edu.in" },
+      { label: "Approach", value: "Built, not templated" },
+      { label: "Delivery", value: "Design → build → launch" }
+    ]
+  },
+  {
+    id: "360-virtual-tours",
+    title: "360° Virtual Tours",
+    category: "immersive",
+    owner: "mkrd",
+    shortDesc:
+      "Interactive panoramic walkthroughs of campuses and facilities, navigable in a browser with no install — as delivered for SDMS.",
+    fullDesc:
+      "A prospective student, parent or client can move through your site node by node, read hotspots on the rooms and equipment, and orient themselves on a floorplan, from a phone on the other side of the country. Our SDMS campus tour is live at virtual-tour.sdms.edu.in and is the honest reference for what this looks like.",
+    keyBenefits: [
+      "Nothing to install. It opens in a browser tab on desktop and mobile.",
+      "Navigable, not just watchable. Node-to-node movement with an interactive floorplan, rather than a video someone sits through.",
+      "Hotspots carry the detail — equipment notes, department information, links and documents placed where they belong in the space.",
+      "Touch panning and device orientation on mobile, so a phone works the way people expect it to."
+    ],
+    process: [
+      { step: "01", label: "Walk the site", desc: "Route planning, node placement, and a lighting check on the spaces that will be hard." },
+      { step: "02", label: "Panoramic capture", desc: "Full spherical capture at every node, bracketed where the lighting demands it." },
+      { step: "03", label: "Stitch & retouch", desc: "Blending, colour matching between nodes, and zenith/nadir cleanup." },
+      { step: "04", label: "Build & host", desc: "Navigation, floorplan, hotspot content, branding, and deployment on your own domain." }
+    ],
+    techStack: ["Spherical panoramic capture", "Three.js / WebGL", "Floorplan navigation", "Hotspot authoring", "Mobile gyroscope"],
+    image: svTours,
+    stats: [
+      { label: "Live Example", value: "virtual-tour.sdms.edu.in" },
+      { label: "Delivery", value: "Browser, no install" },
+      { label: "Mobile", value: "Touch + gyroscope" }
+    ]
+  },
+  {
+    id: "reliable-network-solutions",
+    title: "Network & On-Site Server Setup",
+    category: "digital",
+    owner: "mkrd",
+    shortDesc:
+      "Structured cabling, on-site servers and LAN setup for offices and small plants — the plumbing our own software runs on.",
+    fullDesc:
+      "Our stores and billing software synchronises over a local network and backs up to a machine in the building, so we set those up as a matter of course. If your site needs the network before it can have the software, we do that part too: cabling, switching, an on-site server, user accounts and a backup that someone has actually tested by restoring from it.",
+    keyBenefits: [
+      "A LAN your software can rely on, rather than one that mostly works.",
+      "An on-site server for file sharing, application hosting and backup, so operations do not stop when the internet does.",
+      "Backups that have been restored from at least once, in front of you.",
+      "Segmented access, so a shop-floor terminal is not on the same footing as the accounts machine."
+    ],
+    process: [
+      { step: "01", label: "Survey", desc: "Walk the building, map cable routes, check where the dead spots and the noise sources are." },
+      { step: "02", label: "Design", desc: "Switch layout, cable plan, server sizing, address plan and access segmentation." },
+      { step: "03", label: "Install", desc: "Cabling and termination, rack and switch setup, server build, accounts and shares." },
+      { step: "04", label: "Hand over", desc: "Documented layout, tested restore, and someone on your side who knows how it works." }
+    ],
+    techStack: ["Structured cabling", "Managed switching", "Ubuntu server", "LAN sync", "Scheduled backup"],
+    image: svNetwork,
+    stats: [
+      { label: "Scope", value: "Cable → switch → server" },
+      { label: "Backup", value: "Tested by restoring" },
+      { label: "Built For", value: "Offices & small plants" }
+    ]
+  },
+  {
+    id: "plastic-injection-mould",
+    title: "Mould & Tooling Design",
+    category: "engineering",
+    owner: "parent",
+    shortDesc:
+      "Injection moulds, die-casting tools, sheet-metal tooling and production fixtures — MKRD's engineering side, at mkrdengineers.com, with the printing and prototyping done here.",
+    fullDesc:
+      "Tool design is MKRD's engineering side, and it has its own site at mkrdengineers.com — that is where the mould, die and fixture work lives, and where a tooling enquiry belongs. This site is the software, web and 3D printing half of the same company. What we do alongside the tooling is the printing: the fit-check parts, moulding aids and fixture prototypes that let a design be checked before steel is committed.",
+    keyBenefits: [
+      "One company, one enquiry. The tool design is handled by our engineering side; the printed prototypes are made here.",
+      "Mould construction: two-plate, three-plate, hot runner, insert over-moulding, hand mould, double ejection stroke and auto-unscrewing.",
+      "Plus die-casting and progressive sheet-metal tooling, jigs and fixtures, reverse engineering, and mould flow analysis.",
+      "And the printed proof — fit-check parts, moulding aids and fixture mock-ups made while the tool is still on the screen."
+    ],
+    process: [
+      { step: "01", label: "Enquiry", desc: "Send the part, a drawing or a model. We read it and say which side of the house it belongs to." },
+      { step: "02", label: "Tool design", desc: "Feasibility, cavity and core layout, feed, cooling and ejection, with flow analysis run before steel is cut." },
+      { step: "03", label: "Printed proof", desc: "Our part of it — fit-check components, moulding aids and fixture prototypes printed in-house while the tool is still on the screen." },
+      { step: "04", label: "Handover", desc: "The tool package goes to you and your moulder. We stay on the prototyping side of it." }
+    ],
+    techStack: ["Injection mould design", "Die casting & sheet metal", "Jigs, fixtures & SPM", "Reverse engineering", "Mould flow analysis"],
+    image: pvTooling,
+    stats: [
+      { label: "Detailed At", value: "mkrdengineers.com" },
+      { label: "Printed", value: "In-house" },
+      { label: "Since", value: "2018" }
     ]
   }
 ];
 
 export const CASE_STUDIES: ProjectCaseStudy[] = [
   {
-    id: "sdms-virtual-tour",
-    title: "SDMS 360° Immersive Virtual Campus Tour",
-    client: "SDMS Educational Institutions",
-    category: "360 Virtual Tours & Digital Twin",
-    description: "Full spatial digital twin and high-definition 360° virtual tour capturing modern academic labs, campus halls, and facilities.",
-    longDescription: "MKRD Engineers engineered and deployed a high-resolution interactive 360° virtual tour for SDMS. The project enables prospective students, parents, and international visitors to explore over 80 panoramic nodes with spatial map navigation, equipment info cards, and seamless mobile responsiveness.",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop", // Campus/University
-    link: "/sdms_virtual_tour/index.html",
-    isExternal: true,
+    id: "gst-billing-suite",
+    title: "GST Billing Suite",
+    client: "MKRD product — licensed to manufacturing and trading businesses",
+    category: "Product Engineering — Desktop Software",
+    description:
+      "A full GST compliance and invoicing desktop application: documents, e-way bills, GSTR filing support and multi-site sync, running offline on Windows and macOS.",
+    longDescription:
+      "MKRD designed, built and ships GST Billing Suite as a licensed product. It issues invoices, quotations, proforma invoices, delivery challans and purchase orders; determines CGST+SGST versus IGST automatically from the state codes in each party's GSTIN; and carries all money as integer paise with half-up rounding so totals reconcile exactly against a filed return. It generates GSTR-1 data, imports and reconciles GSTR-2B, and talks to the NIC e-way bill system to generate, cancel, extend and update consignments. Workspaces, licensing, LAN synchronisation and encrypted backup are built in.",
+    image: pvGstBilling,
     deliverables: [
-      "80+ High-Resolution 12K HDR Panorama Capture",
-      "Interactive Campus Floorplan & Dynamic Wayfinding",
-      "Embedded Laboratory Equipment & Facility Hotspots",
-      "Mobile-Optimized Touch Panning and Gyroscope Support"
+      "Invoice, Quotation, Proforma, Delivery Challan and Purchase Order documents",
+      "NIC e-way bill generate, cancel, extend validity and update vehicle/transporter",
+      "GSTR-1 generation and GSTR-2B import with purchase reconciliation",
+      "Configurable document numbering, custom fields and print templates",
+      "Multi-workspace operation with LAN sync and encrypted cloud backup",
+      "Signed installers for Windows and macOS"
     ],
     metrics: [
-      { label: "Panoramic Nodes", value: "85+" },
-      { label: "Visitor Retention", value: "+280%" },
-      { label: "Global Views", value: "50,000+" }
+      { label: "Tax Engine", value: "CGST / SGST / IGST" },
+      { label: "Money Precision", value: "Integer paise" },
+      { label: "Platforms", value: "Windows + macOS" }
     ],
-    tags: ["Spatial 360", "Interactive Tour", "Virtual Reality", "Education"]
+    tags: ["GST Compliance", "E-Way Bill", "Desktop Software", "Product"]
+  },
+  {
+    id: "warehouse-manager",
+    title: "Warehouse Manager",
+    client: "MKRD product — deployed for inventory and stores operations",
+    category: "Product Engineering — Desktop Software",
+    description:
+      "Stores and inventory control with RFID and barcode identification, employee and vendor ledgers, issue/return requests and multi-machine LAN synchronisation.",
+    longDescription:
+      "Warehouse Manager tracks stock through its whole working life: goods in, issue to an employee or a vendor, return, transfer and scrap. Items are identified by barcode or RFID tag, requests are raised and approved in the app, and every movement lands in a transaction ledger that can be exported or reported on. Access is role-gated, several machines on the same network stay in sync over LAN, and backups run on a schedule.",
+    image: pvWarehouse,
+    deliverables: [
+      "Product master with categories, stock levels and low-stock alerts",
+      "RFID tag administration and barcode scanning workflows",
+      "Issue, return, transfer and scrap transactions against employees and vendors",
+      "Request raising and approval with a full audit trail",
+      "Role-gated access and multi-machine LAN synchronisation",
+      "Reports, CSV export, PDF generation and scheduled backup"
+    ],
+    metrics: [
+      { label: "Identification", value: "RFID + Barcode" },
+      { label: "Sync", value: "Multi-machine LAN" },
+      { label: "Access", value: "Role-gated" }
+    ],
+    tags: ["Inventory", "RFID", "Desktop Software", "Product"]
+  },
+  {
+    id: "mould-tooling-programme",
+    title: "Mould & Tooling Design — Group Capability",
+    client: "Automotive, electrical and consumer OEMs",
+    category: "MKRD Engineering — Mould & Tooling Design",
+    description:
+      "The tooling practice, covered in full at mkrdengineers.com. It is listed here because that is where a tooling enquiry belongs, and because we print the prototypes alongside it.",
+    longDescription:
+      "MKRD's engineering side designs injection moulds — two-plate and three-plate, hot runner, insert over-moulding, hand moulds, double-ejection-stroke and auto-unscrewing constructions — along with high-pressure, low-pressure and centre-gated die-casting tools, progressive and trimming sheet-metal tooling, and the jigs, fixtures and special-purpose machines around them. Mould flow analysis is run before steel is committed. This site covers the other half of the same company — software, web, 360° and 3D printing — so what belongs here is the printing that goes with the tooling: fit-check parts, moulding aids and fixture prototypes made in-house while a tool is still on the screen.",
+    image: pvTooling,
+    deliverables: [
+      "2-plate, 3-plate, hot-runner, insert over-moulding and auto-unscrewing mould design",
+      "Die-casting tool design — high pressure, low pressure and centre gating",
+      "Progressive and trimming sheet-metal tooling",
+      "Part-holding, pulling and welding fixtures, and SPM design",
+      "Mould flow analysis and assembly animation",
+      "Reverse engineering — 3D scanning, 2D↔3D conversion, product modification"
+    ],
+    metrics: [
+      { label: "Detailed At", value: "mkrdengineers.com" },
+      { label: "Printed By", value: "MKRD Engineers" },
+      { label: "Tool Types", value: "Mould · Die · Sheet-Metal" }
+    ],
+    tags: ["Mould & Tooling", "Injection Mould", "Die Casting", "Prototyping"]
+  },
+  {
+    id: "sdms-virtual-tour",
+    title: "SDMS 360° Virtual Campus Tour",
+    client: "SDMS Educational Institutions",
+    category: "360° Virtual Tours & Digital Twins",
+    description:
+      "An interactive 360° walkthrough of the SDMS campus — labs, halls and facilities — that a prospective student can explore from a browser.",
+    longDescription:
+      "MKRD captured and built an interactive panoramic tour of the SDMS campus, letting prospective students, parents and visitors move through the site from node to node with map navigation and information hotspots. It runs in the browser with no install, and supports touch panning and device orientation on mobile.",
+    image: pvSdmsTour,
+    link: "https://virtual-tour.sdms.edu.in/",
+    isExternal: true,
+    deliverables: [
+      "360° panoramic capture across campus interiors and exteriors",
+      "Node-to-node navigation with an interactive floorplan",
+      "Information hotspots on facilities and laboratory equipment",
+      "Touch panning and gyroscope support on mobile",
+      "Hosted at virtual-tour.sdms.edu.in"
+    ],
+    metrics: [
+      { label: "Delivery", value: "Browser, no install" },
+      { label: "Navigation", value: "Map + hotspots" },
+      { label: "Mobile", value: "Touch + gyroscope" }
+    ],
+    tags: ["360° Tour", "Digital Twin", "Education", "WebGL"]
   },
   {
     id: "sdms-institutional-portal",
-    title: "SDMS Official Institutional Digital Platform",
+    title: "SDMS Institutional Website",
     client: "SDMS Educational Institutions",
-    category: "Enterprise Web Systems",
-    description: "Modern, high-performance web platform for admissions, curriculum management, news updates, and student services.",
-    longDescription: "Developed the complete digital architecture for SDMS (https://sdms.edu.in/), featuring an intuitive user interface, lightning-fast load times, comprehensive academic department portals, and an automated inquiry processing pipeline.",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop", // Web platform/Portal
+    category: "Web Engineering",
+    description:
+      "The public website for SDMS Educational Institutions — departments, courses, admissions enquiry and news — live at sdms.edu.in.",
+    longDescription:
+      "MKRD built and delivered the SDMS institutional website: a responsive public site covering academic departments and coursework, admissions and enquiry handling, news and announcements, and the institution's public-facing information.",
+    image: pvSdmsSite,
     link: "https://sdms.edu.in/",
     isExternal: true,
     deliverables: [
-      "Bespoke Responsive Web Architecture",
-      "Admissions & Student Inquiry Management Portal",
-      "Departmental Faculty & Coursework Catalogs",
-      "SEO Optimization & Sub-Second Page Speeds"
+      "Responsive site architecture and page templates",
+      "Department and coursework catalogues",
+      "Admissions and enquiry handling",
+      "News and announcements",
+      "Live at sdms.edu.in"
     ],
     metrics: [
-      { label: "Page Load Speed", value: "0.8s" },
-      { label: "Inquiry Conversion", value: "+45%" },
-      { label: "Mobile Traffic", value: "72%" }
+      { label: "Status", value: "Live" },
+      { label: "Scope", value: "Full public site" },
+      { label: "Build", value: "Responsive web" }
     ],
-    tags: ["Web Engineering", "Admissions Portal", "Cloud Hosting", "UI/UX"]
-  },
-  {
-    id: "automotive-injection-moulding",
-    title: "Automotive Precision Injection Mould & Die Tooling",
-    client: "Tier-1 Automotive Component Manufacturer",
-    category: "Precision Mould & Tooling",
-    description: "High-cavity precision injection mould tooling engineered for automotive interior dash consoles and electrical housings.",
-    longDescription: "MKRD Engineers designed and fabricated a 4-cavity hardened H13 steel injection mould with hot runner sequential valve gating. Delivered under strict GD&T tolerance of ±0.005mm with comprehensive mould flow cooling analysis.",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2062&auto=format&fit=crop", // Automotive / CNC
-    deliverables: [
-      "Comprehensive DFM & Rheological Mouldflow Analysis",
-      "4-Cavity H13 Hardened Core/Cavity Tooling",
-      "Integrated Synchronized Lifter/Slider Kinematics",
-      "First-Shot T1 Quality Sign-Off & CMM Verification"
-    ],
-    metrics: [
-      { label: "Machining Tolerance", value: "±0.005 mm" },
-      { label: "Shot Life Guarantee", value: "1,200,000" },
-      { label: "Cycle Time Reduction", value: "-18%" }
-    ],
-    tags: ["Injection Mould", "Automotive", "Mouldflow", "5-Axis CNC"]
-  },
-  {
-    id: "aerospace-additive-prototyping",
-    title: "Advanced Additive Prototyping for Drone Airframe",
-    client: "Autonomous UAV Systems Laboratory",
-    category: "3D Printing & Additive",
-    description: "Carbon-fiber reinforced lightweight structural brackets and internal avionics ducts produced via additive fabrication.",
-    longDescription: "Leveraging carbon-composite FDM and high-detail SLA photopolymers, MKRD rapid-prototyped aerodynamic structural mounts for high-altitude UAV airframes. Reduced overall part weight by 38% while maintaining rigid vibration resistance.",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=2139&auto=format&fit=crop", // Drone/UAV
-    deliverables: [
-      "Topology Optimization & Internal Lattice Design",
-      "Continuous Carbon-Fiber Composite Printing",
-      "Tensile & Thermal Deflection Stress Testing",
-      "Delivered in 48-Hour Rapid Iteration Cycles"
-    ],
-    metrics: [
-      { label: "Weight Reduction", value: "38%" },
-      { label: "Print Turnaround", value: "36 Hours" },
-      { label: "Tensile Strength", value: "185 MPa" }
-    ],
-    tags: ["3D Printing", "Carbon Fiber", "Topology Optimization", "Aerospace"]
-  },
-  {
-    id: "industrial-iot-billing-microservices",
-    title: "Smart Factory Billing & Microservice Engine",
-    client: "Industrial Components Manufacturing Group",
-    category: "Microservices & Software",
-    description: "Cloud-native microservice architecture handling automated GST invoicing, real-time machine telemetry, and work orders.",
-    longDescription: "Architected a decoupled microservices platform in Kubernetes connecting plant-floor PLC telemetry with enterprise billing, dispatch tracking, and financial reconciliation dashboards.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop", // Motherboard/Tech/IoT
-    deliverables: [
-      "Decoupled Dockerized Microservices Architecture",
-      "Automated GST & E-Way Bill Integration",
-      "Real-time Line Telemetry & Work Order Dispatch",
-      "Role-Based Multi-Plant Access Management"
-    ],
-    metrics: [
-      { label: "Invoice Processing Time", value: "Instant" },
-      { label: "Monthly Uptime", value: "99.98%" },
-      { label: "Plants Connected", value: "6 Facilities" }
-    ],
-    tags: ["Microservices", "Billing Software", "Docker/K8s", "IoT Telemetry"]
+    tags: ["Web Engineering", "Education", "Admissions", "Responsive"]
   }
 ];
 
+/**
+ * The material list.
+ *
+ * Two processes run here — wire (FDM) and liquid (resin) — and the shop stocks
+ * a ladder of grades within each, because the right answer for a presentation
+ * model is not the right answer for a fixture that has to hold shape warm. What
+ * gets loaded is a per-job decision, so `costTier` is doing real work in this
+ * table rather than decorating it.
+ */
 export const MATERIALS_DB: MaterialSpec[] = [
   {
-    id: "carbon-peek",
-    name: "Carbon-Fiber PEEK",
-    category: "High-Performance Thermoplastic",
-    tensileStrength: "190 MPa",
-    heatDeflection: "260°C",
-    density: "1.38 g/cm³",
-    color: "#1e293b",
-    costTier: "$$$$",
-    description: "Extreme chemical resistance, aerospace-grade strength-to-weight ratio, suitable for autoclave and engine bay components."
+    id: "pla-plus",
+    name: "PLA+ (Engineering Grade)",
+    category: "FDM Thermoplastic",
+    tensileStrength: "≈ 60 MPa",
+    heatDeflection: "≈ 60 °C",
+    density: "1.24 g/cm³",
+    color: "#7C71FF",
+    costTier: "$",
+    description:
+      "Highest detail and dimensional stability of the wire materials. First choice for form and fit checks, presentation models and low-load fixtures."
   },
   {
-    id: "titanium-ti64",
-    name: "Titanium Ti-6Al-4V (Grade 5)",
-    category: "Direct Metal Laser Sintering (DMLS)",
-    tensileStrength: "950 MPa",
-    heatDeflection: "400°C+",
-    density: "4.43 g/cm³",
-    color: "#94a3b8",
-    costTier: "$$$$",
-    description: "Exceptional biocompatibility, structural rigidity, and corrosion resistance for aerospace and surgical implants."
+    id: "abs",
+    name: "ABS",
+    category: "FDM Thermoplastic",
+    tensileStrength: "≈ 40 MPa",
+    heatDeflection: "≈ 98 °C",
+    density: "1.04 g/cm³",
+    color: "#8B7DFF",
+    costTier: "$",
+    description:
+      "Tougher and more heat-tolerant than PLA, and it can be vapour-smoothed. Used where a prototype has to approximate a moulded ABS part."
   },
   {
-    id: "polycarbonate-cf",
-    name: "Polycarbonate Carbon Fiber (PC-CF)",
-    category: "Engineering Composite",
-    tensileStrength: "105 MPa",
-    heatDeflection: "145°C",
-    density: "1.22 g/cm³",
-    color: "#0f172a",
+    id: "petg",
+    name: "PETG",
+    category: "FDM Thermoplastic",
+    tensileStrength: "≈ 50 MPa",
+    heatDeflection: "≈ 70 °C",
+    density: "1.27 g/cm³",
+    color: "#A79CFF",
+    costTier: "$",
+    description:
+      "Impact resistant, low-warp and chemically stable. The default for shop-floor jigs, guards and parts that see handling."
+  },
+  {
+    id: "tpu",
+    name: "TPU (Flexible)",
+    category: "FDM Elastomer",
+    tensileStrength: "≈ 30 MPa",
+    heatDeflection: "—",
+    density: "1.21 g/cm³",
+    color: "#5B4DF5",
+    costTier: "$$",
+    description:
+      "Shore-A flexible. Gaskets, soft-touch grips, protective bumpers and over-mould studies before a two-shot tool is committed."
+  },
+  {
+    id: "nylon-cf",
+    name: "Carbon-Filled Nylon",
+    category: "FDM Composite",
+    tensileStrength: "≈ 70 MPa",
+    heatDeflection: "≈ 140 °C",
+    density: "1.18 g/cm³",
+    color: "#241BB4",
     costTier: "$$$",
-    description: "High impact resistance, dimensional stability, and matte aesthetic finish for functional housings and jigs."
+    description:
+      "Stiff, dimensionally stable and heat tolerant. Reserved for load-bearing fixtures and parts that have to hold tolerance warm."
+  },
+  {
+    id: "standard-resin",
+    name: "Standard Resin",
+    category: "Resin Photopolymer",
+    tensileStrength: "≈ 50 MPa",
+    heatDeflection: "≈ 60 °C",
+    density: "1.18 g/cm³",
+    color: "#C2BBFF",
+    costTier: "$$",
+    description:
+      "The liquid process, for anything where surface finish and fine detail matter more than toughness — appearance models, small assemblies, thin features a nozzle cannot resolve."
   },
   {
     id: "tough-resin",
-    name: "Engineering Tough 2000 Resin",
-    category: "SLA Photopolymer",
-    tensileStrength: "65 MPa",
-    heatDeflection: "75°C",
+    name: "Tough / ABS-Like Resin",
+    category: "Resin Photopolymer",
+    tensileStrength: "≈ 55 MPa",
+    heatDeflection: "≈ 75 °C",
     density: "1.15 g/cm³",
-    color: "#0284c7",
-    costTier: "$$",
-    description: "Simulates ABS injection molded parts with high elongation at break; perfect for snap-fit enclosures and wear assemblies."
-  },
-  {
-    id: "petg-industrial",
-    name: "Industrial PETG+",
-    category: "Standard Prototyping Polymer",
-    tensileStrength: "50 MPa",
-    heatDeflection: "72°C",
-    density: "1.27 g/cm³",
-    color: "#059669",
-    costTier: "$",
-    description: "Durable, water-resistant, odorless, and highly cost-effective for general enclosure prototypes and testing."
+    color: "#AEB4DE",
+    costTier: "$$$",
+    description:
+      "Resin detail with enough impact resistance to be handled and assembled. Snap fits, clips and functional appearance parts."
   }
 ];
 
+/**
+ * The equipment behind THIS site. Mould flow analysis, CAD tool design and
+ * reverse engineering were on this list; they belong to MKRD's engineering side
+ * and are covered at mkrdengineers.com, so they have been moved out rather than
+ * padding the machinery list of a site about printing and software.
+ */
 export const MACHINERY_SPECS: MachineSpec[] = [
   {
-    id: "vmc-5axis",
-    name: "DMG MORI 5-Axis High-Speed VMC",
-    type: "Subtractive CNC Milling",
-    workEnvelope: "750 × 650 × 560 mm",
-    tolerance: "±0.003 mm",
-    keyCapability: "High-speed hardened tool steel machining up to 24,000 RPM spindle speed.",
-    status: "ACTIVE"
-  },
-  {
-    id: "fdm-industrial",
-    name: "MKRD High-Temp Dual-Extrusion 3D Cell",
-    type: "Additive FDM/FFF",
-    workEnvelope: "450 × 450 × 500 mm",
-    tolerance: "±0.05 mm",
-    keyCapability: "Chamber heating to 90°C and nozzle to 450°C for continuous Carbon PEEK/Ultem.",
-    status: "ACTIVE"
-  },
-  {
-    id: "sla-precision",
-    name: "Formlabs Form 4L Industrial Photopolymer",
-    type: "Additive SLA / MSLA",
-    workEnvelope: "335 × 200 × 300 mm",
-    tolerance: "±0.025 mm",
-    keyCapability: "Sub-pixel anti-aliasing with biocompatible and engineering resins.",
+    id: "fdm-printer",
+    name: "FDM / FFF 3D Printer",
+    type: "Additive — wire (filament)",
+    workEnvelope: "245 × 245 × 270 mm",
+    tolerance: "0.1 mm",
+    keyCapability:
+      "Functional prototypes, fit-check parts, jigs and moulding aids in PLA+, ABS, PETG, TPU and carbon-filled nylon, typically same or next day.",
     status: "ONLINE"
   },
   {
-    id: "cmm-inspection",
-    name: "Zeiss Coordinate Measuring Machine (CMM)",
-    type: "Metrology & Quality Assurance",
-    workEnvelope: "1000 × 1200 × 800 mm",
-    tolerance: "±0.001 mm (1 Micron)",
-    keyCapability: "Automated 3D contact scanning, GD&T reporting, and reverse engineering point clouds.",
+    id: "resin-printer",
+    name: "Resin 3D Printer",
+    type: "Additive — liquid (photopolymer)",
+    workEnvelope: "Bench-format resin vat",
+    tolerance: "Fine-feature detail",
+    keyCapability:
+      "Surface finish and small features a 0.4 mm nozzle cannot resolve — appearance models, thin walls, fine text and small assemblies.",
     status: "ONLINE"
+  },
+  {
+    id: "post-processing",
+    name: "Finishing & Post-Processing",
+    type: "Support removal · wash · cure · finish",
+    workEnvelope: "Both processes",
+    tolerance: "Per drawing on the features that matter",
+    keyCapability:
+      "Support removal, resin wash and UV cure, cleanup, and a dimensional check against the drawing before anything leaves.",
+    status: "ACTIVE"
+  },
+  {
+    id: "software-workstations",
+    name: "Software & Web Development",
+    type: "Product engineering",
+    workEnvelope: "Desktop · web · 360°",
+    tolerance: "—",
+    keyCapability:
+      "GST Billing Suite and Warehouse Manager are built and shipped here, along with client web platforms and 360° tours.",
+    status: "ACTIVE"
   }
 ];
 
 export const CLIENT_PARTNERS = [
-  { name: "SDMS Educational Institutions", category: "Education & Virtual Twins" },
-  { name: "Automotive Precision OEM", category: "Tier-1 Auto Moulding" },
-  { name: "Precision Robotics Labs", category: "Industrial Automation" },
-  { name: "AeroTech Dynamics", category: "Additive UAV Components" },
-  { name: "InfraCloud Networks", category: "Enterprise Systems" }
+  { name: "UNO Minda", category: "Automotive Components" },
+  { name: "UNO Minda Lighting", category: "Automotive Lighting" },
+  { name: "UNO Minderika", category: "Automotive Systems" },
+  { name: "Panasonic India", category: "Consumer Electronics" },
+  { name: "Schneider Electric India", category: "Electrical & Automation" },
+  { name: "L&T Electrical & Automation", category: "Electrical & Automation" },
+  { name: "PG Electroplast", category: "Contract Manufacturing" },
+  { name: "Shankar Moulding", category: "Plastic Moulding" },
+  { name: "ALP Overseas", category: "Industrial Manufacturing" },
+  { name: "Paramjyoti Movers", category: "Logistics & Handling" },
+  { name: "SDMS Educational Institutions", category: "Education — Web & 360° Tour" }
 ];

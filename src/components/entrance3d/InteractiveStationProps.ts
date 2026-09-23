@@ -17,7 +17,7 @@ export const ENTRANCE_STATIONS: Record<string, StationData> = {
     category: 'Enterprise Cloud & Compute Node',
     status: 'ONLINE • 99.99% UPTIME',
     spec: '128-Core Neural Array • 100 Gbps Low-Latency Mesh',
-    accentColor: '#38bdf8',
+    accentColor: '#8B7DFF',
     description: 'High-density computational cluster executing real-time FEA structural simulation and enterprise IoT telemetry.'
   },
   printer: {
@@ -26,7 +26,7 @@ export const ENTRANCE_STATIONS: Record<string, StationData> = {
     category: 'Industrial 3D Additive Cell',
     status: 'PRINTING • LAYER 384/520',
     spec: 'Dual Extrusion • Carbon-PEEK & Titanium Sintering',
-    accentColor: '#06b6d4',
+    accentColor: '#7C71FF',
     description: 'Micron-precision additive fabrication chamber with automated heated bed leveling and laser layer inspection.'
   },
   workstation: {
@@ -35,7 +35,7 @@ export const ENTRANCE_STATIONS: Record<string, StationData> = {
     category: 'High-Performance Engineering Rig',
     status: 'ACTIVE • 3D SIMULATION LIVE',
     spec: 'Dual 4K Curved Displays • RTX Quadro Accelerated',
-    accentColor: '#818cf8',
+    accentColor: '#8B7DFF',
     description: 'Engineers terminal running solid-state mould geometry calculations, aerodynamic flow analysis, and toolpath generation.'
   },
   robot: {
@@ -44,7 +44,7 @@ export const ENTRANCE_STATIONS: Record<string, StationData> = {
     category: 'Robotic Automation & Milling Unit',
     status: 'CALIBRATED • ±0.002mm ACCURACY',
     spec: 'High-Torque Harmonic Drives • Optical Laser Alignment',
-    accentColor: '#f59e0b',
+    accentColor: '#8B7DFF',
     description: 'Multi-axis articulated robotic end-effector for automated pick-and-place, laser scanning, and micro-precision finishing.'
   }
 };

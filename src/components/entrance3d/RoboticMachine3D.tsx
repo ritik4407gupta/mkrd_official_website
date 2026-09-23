@@ -167,7 +167,7 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
       <mesh position={[0, 0.25, 0]}>
         <cylinderGeometry args={[0.65, 0.75, 0.5, 24]} />
         <meshStandardMaterial
-          color={hovered ? '#1e293b' : '#0f172a'}
+          color={hovered ? '#161A40' : '#0B0D24'}
           metalness={0.9}
           roughness={0.2}
         />
@@ -177,7 +177,7 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
       <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.75, 0.85, 32]} />
         <meshBasicMaterial
-          color={hovered ? '#f59e0b' : '#d97706'}
+          color={hovered ? '#8B7DFF' : '#d97706'}
           transparent
           opacity={hovered ? 0.9 : 0.4}
         />
@@ -187,7 +187,7 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
       <mesh position={[0, 0.42, 0]}>
         <cylinderGeometry args={[0.66, 0.66, 0.1, 24]} />
         <meshStandardMaterial
-          color="#f59e0b"
+          color="#8B7DFF"
           metalness={0.5}
           roughness={0.4}
         />
@@ -198,13 +198,13 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
         {/* Swivel Base */}
         <mesh position={[0, 0.12, 0]}>
           <cylinderGeometry args={[0.45, 0.52, 0.24, 20]} />
-          <meshStandardMaterial color="#0284c7" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color="#5B4DF5" metalness={0.8} roughness={0.2} />
         </mesh>
 
         {/* Lower Shoulder Mount */}
         <mesh position={[0, 0.32, 0]}>
           <boxGeometry args={[0.36, 0.25, 0.36]} />
-          <meshStandardMaterial color="#0f172a" metalness={0.9} />
+          <meshStandardMaterial color="#0B0D24" metalness={0.9} />
         </mesh>
 
         {/* Lower Arm Segment (Pivot at shoulder) */}
@@ -212,7 +212,7 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
           <mesh position={[0, 0.45, 0]}>
             <boxGeometry args={[0.18, 0.95, 0.2]} />
             <meshStandardMaterial
-              color={hovered ? '#0284c7' : '#0369a1'}
+              color={hovered ? '#5B4DF5' : '#241BB4'}
               metalness={0.7}
               roughness={0.3}
             />
@@ -229,14 +229,14 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
             {/* Elbow Hub */}
             <mesh rotation={[0, 0, Math.PI / 2]}>
               <cylinderGeometry args={[0.14, 0.14, 0.24, 16]} />
-              <meshStandardMaterial color="#0f172a" metalness={0.9} />
+              <meshStandardMaterial color="#0B0D24" metalness={0.9} />
             </mesh>
 
             {/* Forearm Body */}
             <mesh position={[0, 0.35, 0]}>
               <boxGeometry args={[0.15, 0.75, 0.16]} />
               <meshStandardMaterial
-                color={hovered ? '#38bdf8' : '#0284c7'}
+                color={hovered ? '#8B7DFF' : '#5B4DF5'}
                 metalness={0.8}
                 roughness={0.2}
               />
@@ -247,15 +247,15 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
               {/* Tool Flange */}
               <mesh>
                 <cylinderGeometry args={[0.09, 0.09, 0.08, 16]} />
-                <meshStandardMaterial color="#0f172a" metalness={0.9} />
+                <meshStandardMaterial color="#0B0D24" metalness={0.9} />
               </mesh>
 
               {/* Optical Laser / Milling Spindle Head */}
               <mesh position={[0, 0.12, 0]} rotation={[Math.PI, 0, 0]}>
                 <coneGeometry args={[0.06, 0.16, 16]} />
                 <meshStandardMaterial
-                  color="#f59e0b"
-                  emissive="#f97316"
+                  color="#8B7DFF"
+                  emissive="#7C71FF"
                   emissiveIntensity={hovered ? 1.6 : 0.8}
                   metalness={0.9}
                 />
@@ -265,7 +265,7 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
               <pointLight
                 ref={toolLaserRef}
                 position={[0, 0.25, 0]}
-                color="#f59e0b"
+                color="#8B7DFF"
                 intensity={hovered ? 2.8 : 1.2}
                 distance={2.5}
               />
@@ -286,20 +286,20 @@ export const RoboticMachine3D: React.FC<RoboticMachine3DProps> = ({
             hovered ? 'scale-105 opacity-100' : 'scale-90 opacity-80'
           }`}
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-            <span className="font-bold text-amber-300">6-AXIS ACTUATOR</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-brand-500/60 shadow-[0_0_20px_rgba(139,125,255,0.4)] backdrop-blur-md text-white font-mono text-[11px] whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping" />
+            <span className="font-bold text-brand-300">6-AXIS ACTUATOR</span>
             <span className="text-[10px] text-slate-400">|</span>
             <span className="text-[10px] text-emerald-400 font-semibold">±0.002mm ACCURACY</span>
           </div>
 
           {hovered && (
-            <div className="p-3 rounded-xl bg-slate-950/95 border border-amber-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
-              <div className="font-bold text-amber-400 text-xs mb-1 font-display">Robotic Automation Unit</div>
+            <div className="p-3 rounded-xl bg-slate-950/95 border border-brand-500/40 shadow-2xl backdrop-blur-md text-left text-xs max-w-[250px] text-slate-200 animate-in fade-in zoom-in-95 duration-200">
+              <div className="font-bold text-brand-400 text-xs mb-1 font-display">Robotic Automation Unit</div>
               <p className="text-[11px] text-slate-300 leading-snug">
                 Harmonic-drive robotic actuator for precision mould CNC milling and laser inspection. Click to test calibration!
               </p>
-              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-amber-300">
+              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-brand-300">
                 <span>JOINT: 6/6 ALIGNED</span>
                 <span className="text-emerald-400">CLICK TO CALIBRATE</span>
               </div>

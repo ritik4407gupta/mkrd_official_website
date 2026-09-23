@@ -49,8 +49,11 @@ export const CustomCursor: React.FC = () => {
           body {
             cursor: none;
           }
-          a, button, [role="button"], input, select, textarea {
+          a, button, [role="button"] {
             cursor: none !important;
+          }
+          input, select, textarea {
+            cursor: auto !important;
           }
         `}
       </style>
@@ -65,7 +68,7 @@ export const CustomCursor: React.FC = () => {
           // we need to shift this 200px box by another -84px to perfectly center it (100 - 16 = 84)
           marginLeft: '-84px',
           marginTop: '-84px',
-          background: 'radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.05) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(124,113,255,0.15) 0%, rgba(124,113,255,0.05) 40%, transparent 70%)',
           willChange: 'transform'
         }}
         animate={{
@@ -76,7 +79,7 @@ export const CustomCursor: React.FC = () => {
 
       {/* The Original Good Cursor (32x32 Ring + Dot) perfectly aligned */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-orange-400/50 pointer-events-none z-[9999] flex items-center justify-center transition-opacity"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-brand-400/50 pointer-events-none z-[9999] flex items-center justify-center transition-opacity"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -88,10 +91,10 @@ export const CustomCursor: React.FC = () => {
           animate={{
             width: isPointer ? 12 : 5,
             height: isPointer ? 12 : 5,
-            backgroundColor: isPointer ? '#f97316' : '#ffffff',
+            backgroundColor: isPointer ? '#7C71FF' : '#ffffff',
             boxShadow: isPointer 
-              ? '0 0 10px 2px rgba(249, 115, 22, 0.5)' 
-              : '0 0 6px 1px rgba(249, 115, 22, 0.4)'
+              ? '0 0 10px 2px rgba(124, 113, 255, 0.5)' 
+              : '0 0 6px 1px rgba(124, 113, 255, 0.4)'
           }}
           transition={{ duration: 0.2 }}
         />

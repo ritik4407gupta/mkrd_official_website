@@ -1,29 +1,32 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { CASE_STUDIES, SERVICES } from '../data/mkrdData';
+import { motion } from 'motion/react';
+import { CASE_STUDIES } from '../data/mkrdData';
 
 export const RadialImageEmitter: React.FC = () => {
   const images = useMemo(() => {
-    const rawImages = [...CASE_STUDIES.map(c => c.image), ...SERVICES.map(s => s.image)];
-    // Ensure we have at least 16 images by repeating
-    const duplicated = [...rawImages, ...rawImages, ...rawImages].slice(0, 16);
-    
+    // Only the case-study visuals, which are drawn from the real products and
+    // the real live sites. This used to pull in the SERVICES images too, which
+    // are stock photography — so the projects hero was throwing AI pictures of
+    // generic factories and robot arms around a page about work that exists.
+    const rawImages = CASE_STUDIES.map((c) => c.image);
+    const duplicated = [...rawImages, ...rawImages, ...rawImages].slice(0, 15);
+
     return duplicated.map((img, i) => {
       // Golden ratio distribution for better spread
       const angle = i * 2.39996322972865332;
-      
+
       // Randomize distance they travel (between 500px and 1200px)
-      const distance = 500 + Math.random() * 700; 
-      
+      const distance = 500 + Math.random() * 700;
+
       const tx = Math.cos(angle) * distance;
       const ty = Math.sin(angle) * distance;
-      
+
       return {
         id: i,
         src: img,
         tx,
         ty,
-        delay: i * (8 / 16), // stagger evenly over the duration
+        delay: i * (8 / 15), // stagger evenly over the duration
         scale: 0.6 + Math.random() * 0.8, // Random sizes
       };
     });
@@ -34,7 +37,7 @@ export const RadialImageEmitter: React.FC = () => {
       {images.map((img) => (
         <motion.div
           key={img.id}
-          className="absolute rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20"
+          className="absolute rounded-xl overflow-hidden shadow-2xl border border-brand-500/20"
           style={{ width: 160, height: 100 }}
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
           animate={{
@@ -50,7 +53,8 @@ export const RadialImageEmitter: React.FC = () => {
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          <img src={img.src} alt="particle" className="w-full h-full object-cover opacity-50" />
+          <img src={img.src} alt="" aria-hidden="true" loading="lazy" decoding="async"
+            className="w-full h-full object-cover opacity-[0.65]" />
         </motion.div>
       ))}
     </div>
